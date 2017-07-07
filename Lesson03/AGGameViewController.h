@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  AGGameViewController.h
 //  Lesson03
 //
 //  Created by user on 7/7/17.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface AGGameViewController : UIViewController
 
 @end
-

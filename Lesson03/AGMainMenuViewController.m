@@ -6,13 +6,13 @@
 //  Copyright © 2017 user. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "AGMainMenuViewController.h"
 
-@interface ViewController ()
+@interface AGMainMenuViewController ()
 
 @end
 
-@implementation ViewController
+@implementation AGMainMenuViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

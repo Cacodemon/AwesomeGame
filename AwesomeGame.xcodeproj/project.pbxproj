@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CEF0B5421F0F6F2B00F18BE7 /* Lesson03.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson03.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0B5461F0F6F2B00F18BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEF0B5491F0F6F2B00F18BE7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		CEF0B5391F0F6F2B00F18BE7 = {
 			isa = PBXGroup;
 			children = (
-				CEF0B5441F0F6F2B00F18BE7 /* Lesson03 */,
+				CEF0B5441F0F6F2B00F18BE7 /* AwesomeGame */,
 				CEF0B5431F0F6F2B00F18BE7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,12 +62,12 @@
 		CEF0B5431F0F6F2B00F18BE7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEF0B5421F0F6F2B00F18BE7 /* Lesson03.app */,
+				CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CEF0B5441F0F6F2B00F18BE7 /* Lesson03 */ = {
+		CEF0B5441F0F6F2B00F18BE7 /* AwesomeGame */ = {
 			isa = PBXGroup;
 			children = (
 				CEF0B5681F0F972900F18BE7 /* View Controllers */,
@@ -79,7 +79,7 @@
 				CEF0B5561F0F6F2B00F18BE7 /* Info.plist */,
 				CEF0B5451F0F6F2B00F18BE7 /* Supporting Files */,
 			);
-			path = Lesson03;
+			path = AwesomeGame;
 			sourceTree = "<group>";
 		};
 		CEF0B5451F0F6F2B00F18BE7 /* Supporting Files */ = {
@@ -110,9 +110,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CEF0B5411F0F6F2B00F18BE7 /* Lesson03 */ = {
+		CEF0B5411F0F6F2B00F18BE7 /* AwesomeGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEF0B5591F0F6F2B00F18BE7 /* Build configuration list for PBXNativeTarget "Lesson03" */;
+			buildConfigurationList = CEF0B5591F0F6F2B00F18BE7 /* Build configuration list for PBXNativeTarget "AwesomeGame" */;
 			buildPhases = (
 				CEF0B53E1F0F6F2B00F18BE7 /* Sources */,
 				CEF0B53F1F0F6F2B00F18BE7 /* Frameworks */,
@@ -122,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = Lesson03;
+			name = AwesomeGame;
 			productName = Lesson03;
-			productReference = CEF0B5421F0F6F2B00F18BE7 /* Lesson03.app */;
+			productReference = CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,7 +142,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CEF0B53D1F0F6F2B00F18BE7 /* Build configuration list for PBXProject "Lesson03" */;
+			buildConfigurationList = CEF0B53D1F0F6F2B00F18BE7 /* Build configuration list for PBXProject "AwesomeGame" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -155,7 +155,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEF0B5411F0F6F2B00F18BE7 /* Lesson03 */,
+				CEF0B5411F0F6F2B00F18BE7 /* AwesomeGame */,
 			);
 		};
 /* End PBXProject section */
@@ -306,9 +306,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Lesson03/Info.plist;
+				INFOPLIST_FILE = AwesomeGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ks.Lesson03;
+				PRODUCT_BUNDLE_IDENTIFIER = ks.AwesomeGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -317,9 +317,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Lesson03/Info.plist;
+				INFOPLIST_FILE = AwesomeGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ks.Lesson03;
+				PRODUCT_BUNDLE_IDENTIFIER = ks.AwesomeGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -327,7 +327,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CEF0B53D1F0F6F2B00F18BE7 /* Build configuration list for PBXProject "Lesson03" */ = {
+		CEF0B53D1F0F6F2B00F18BE7 /* Build configuration list for PBXProject "AwesomeGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEF0B5571F0F6F2B00F18BE7 /* Debug */,
@@ -336,13 +336,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEF0B5591F0F6F2B00F18BE7 /* Build configuration list for PBXNativeTarget "Lesson03" */ = {
+		CEF0B5591F0F6F2B00F18BE7 /* Build configuration list for PBXNativeTarget "AwesomeGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEF0B55A1F0F6F2B00F18BE7 /* Debug */,
 				CEF0B55B1F0F6F2B00F18BE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

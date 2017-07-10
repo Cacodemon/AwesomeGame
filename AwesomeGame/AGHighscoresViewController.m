@@ -7,8 +7,10 @@
 //
 
 #import "AGHighscoresViewController.h"
+#import "AGHighscoresTableViewCell.h"
+#import "AGHighscoresManager.h"
 
-@interface AGHighscoresViewController ()
+@interface AGHighscoresViewController () <UITableViewDelegate, UITableViewDataSource>
 
 - (void)goToMainMenu;
 
@@ -26,6 +28,33 @@
 - (void)goToMainMenu {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [[AGHighscoresManager sharedInstance] allRecords].count;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    AGHighscoresTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"AGHighscoresTableViewCellPrototype"];
+    
+    if (!cell) {
+        cell = [[AGHighscoresTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                reuseIdentifier:@"AGHighscoresTableViewCellPrototype"];
+    }
+    
+    NSDictionary *record = [[[AGHighscoresManager sharedInstance] allRecords] objectAtIndex:indexPath.row];
+    [cell setHighscoresRecord:record];
+    
+    
+    return nil;
+}
+
+#pragma mark - UITableViewDelegate
+
+//TBD
 
 #pragma mark - Actions
 

@@ -49,7 +49,7 @@
     [cell setHighscoresRecord:record];
     
     
-    return nil;
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate

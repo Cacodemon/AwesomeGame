@@ -44,26 +44,26 @@ static AGHighscoresManager *sharedInstance;
                @{
                    kHighscoresPlace   : @"2",
                    kHighscoresDate    : @"23.01.2017",
-                   kHighscoresScores  : @"984837218"
+                   kHighscoresScores  : @"98483721"
                    },
                @{
                    kHighscoresPlace   : @"3",
                    kHighscoresDate    : @"11.03.2017",
-                   kHighscoresScores  : @"984837218"
+                   kHighscoresScores  : @"84837218"
                    },
                @{
                    kHighscoresPlace   : @"4",
                    kHighscoresDate    : @"02.02.2017",
-                   kHighscoresScores  : @"984837218"
+                   kHighscoresScores  : @"8437218"
                    },@{
                    kHighscoresPlace   : @"5",
                    kHighscoresDate    : @"09.05.2017",
-                   kHighscoresScores  : @"984837218"
+                   kHighscoresScores  : @"937218"
                    },
                @{
                    kHighscoresPlace   : @"6",
                    kHighscoresDate    : @"13.12.2016",
-                   kHighscoresScores  : @"984837218"
+                   kHighscoresScores  : @"48218"
                    }
                ];
 #endif //USE_DUMMY_RECORDS

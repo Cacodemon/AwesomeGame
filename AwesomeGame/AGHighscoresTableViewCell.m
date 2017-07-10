@@ -7,6 +7,7 @@
 //
 
 #import "AGHighscoresTableViewCell.h"
+#import "AGHighscoresManager.h"
 
 @interface AGHighscoresTableViewCell ()
 
@@ -30,8 +31,9 @@
     // Configure the view for the selected state
 }
 
-- (void)setHighscoresRecord:(NSDictionary*)dictionary {
-    
+- (void)setHighscoresRecord:(NSDictionary*)record {
+    self.placeNumberLabel.text = [record objectForKey:kHighscoresPlace];
+    self.dateLabel.text = [record objectForKey:kHighscoresDate];
+    self.scoresLabel.text = [record objectForKey:kHighscoresScores];
 }
-
 @end

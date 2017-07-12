@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */; };
 		CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5461F0F6F2B00F18BE7 /* main.m */; };
 		CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5491F0F6F2B00F18BE7 /* AppDelegate.m */; };
 		CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B54C1F0F6F2B00F18BE7 /* AGMainMenuViewController.m */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CEAA8C6D1F16200000BC3CD7 /* UIColor+AwesomeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AwesomeGame.h"; sourceTree = "<group>"; };
+		CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AwesomeGame.m"; sourceTree = "<group>"; };
 		CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0B5461F0F6F2B00F18BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,6 +60,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEAA8C701F16200700BC3CD7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA8C6D1F16200000BC3CD7 /* UIColor+AwesomeGame.h */,
+				CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		CEF0B5391F0F6F2B00F18BE7 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +88,7 @@
 		CEF0B5441F0F6F2B00F18BE7 /* AwesomeGame */ = {
 			isa = PBXGroup;
 			children = (
+				CEAA8C701F16200700BC3CD7 /* Categories */,
 				CEF0B5BA1F13930F00F18BE7 /* Managers */,
 				CEF0B5B61F138B0A00F18BE7 /* Table Cells */,
 				CEF0B5681F0F972900F18BE7 /* View Controllers */,
@@ -207,6 +220,7 @@
 				CEF0B5B51F138AF900F18BE7 /* AGHighscoresTableViewCell.m in Sources */,
 				CEF0B5671F0F970F00F18BE7 /* AGGameFieldViewController.m in Sources */,
 				CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */,
+				CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */,
 				CEF0B5B91F13930700F18BE7 /* AGHighscoresManager.m in Sources */,
 				CEF0B5611F0F955400F18BE7 /* AGIngameMenuViewController.m in Sources */,
 				CEF0B5641F0F96FB00F18BE7 /* AGGameViewController.m in Sources */,

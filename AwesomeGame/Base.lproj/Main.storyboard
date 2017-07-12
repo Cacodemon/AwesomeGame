@@ -164,7 +164,7 @@
         <!--Highscores-->
         <scene sceneID="hVW-Dc-Rqc">
             <objects>
-                <viewController title="Highscores" id="Z7e-zd-9UX" customClass="AGHighscoresViewController" sceneMemberID="viewController">
+                <viewController title="Highscores" automaticallyAdjustsScrollViewInsets="NO" id="Z7e-zd-9UX" customClass="AGHighscoresViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xI6-x0-PND"/>
                         <viewControllerLayoutGuide type="bottom" id="LA4-lm-MyA"/>
@@ -173,15 +173,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HBT-tv-4ML">
-                                <rect key="frame" x="0.0" y="71" width="375" height="596"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HBT-tv-4ML">
+                                <rect key="frame" x="0.0" y="72" width="375" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AGHighscoresTableViewCellPrototype" rowHeight="60" id="087-lO-dq0" customClass="AGHighscoresTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AGHighscoresTableViewCellPrototype" rowHeight="60" id="087-lO-dq0" customClass="AGHighscoresTableViewCell">
+                                        <rect key="frame" x="0.0" y="1" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="087-lO-dq0" id="xjA-cd-0JU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="az5-3Y-Qx5">
@@ -209,7 +209,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="shT-36-lZZ" secondAttribute="bottom" constant="4" id="FaJ-1l-KTQ"/>
                                                 <constraint firstItem="shT-36-lZZ" firstAttribute="top" secondItem="xjA-cd-0JU" secondAttribute="top" constant="4" id="Fee-ka-9uo"/>
@@ -236,10 +236,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blt-Ew-lNV">
-                                <rect key="frame" x="0.0" y="20" width="375" height="52"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMK-y8-YUY">
-                                        <rect key="frame" x="8" y="8" width="80" height="36"/>
+                                        <rect key="frame" x="8" y="28" width="80" height="36"/>
                                         <color key="backgroundColor" red="0.40406540730000001" green="0.70438389450000005" blue="0.88611156089999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="SUd-I2-bfN"/>
@@ -253,22 +253,22 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.88611156089999998" green="0.67882716369999996" blue="0.42010545040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.42473934315211109" green="0.46778487101910238" blue="0.88611156089999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="AMK-y8-YUY" firstAttribute="leading" secondItem="blt-Ew-lNV" secondAttribute="leading" constant="8" id="J6o-HB-jFb"/>
-                                    <constraint firstAttribute="height" constant="52" id="Kfg-GV-vgp"/>
+                                    <constraint firstAttribute="height" constant="72" id="Kfg-GV-vgp"/>
                                     <constraint firstAttribute="bottom" secondItem="AMK-y8-YUY" secondAttribute="bottom" constant="8" id="lpn-Q3-MmI"/>
-                                    <constraint firstItem="AMK-y8-YUY" firstAttribute="top" secondItem="blt-Ew-lNV" secondAttribute="top" constant="8" id="uNN-8p-bpG"/>
+                                    <constraint firstItem="AMK-y8-YUY" firstAttribute="top" secondItem="blt-Ew-lNV" secondAttribute="top" constant="28" id="uNN-8p-bpG"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="blt-Ew-lNV" firstAttribute="leading" secondItem="Zi1-NL-SUx" secondAttribute="leading" id="HXV-0O-Zgd"/>
-                            <constraint firstItem="blt-Ew-lNV" firstAttribute="top" secondItem="Zi1-NL-SUx" secondAttribute="top" constant="20" id="MAq-Jw-Yee"/>
+                            <constraint firstItem="blt-Ew-lNV" firstAttribute="top" secondItem="Zi1-NL-SUx" secondAttribute="top" id="MAq-Jw-Yee"/>
                             <constraint firstItem="HBT-tv-4ML" firstAttribute="leading" secondItem="Zi1-NL-SUx" secondAttribute="leading" id="MRP-cK-F2P"/>
+                            <constraint firstItem="HBT-tv-4ML" firstAttribute="top" secondItem="blt-Ew-lNV" secondAttribute="bottom" id="dP2-bx-APY"/>
                             <constraint firstAttribute="trailing" secondItem="blt-Ew-lNV" secondAttribute="trailing" id="eUe-O4-eGK"/>
-                            <constraint firstItem="HBT-tv-4ML" firstAttribute="top" secondItem="blt-Ew-lNV" secondAttribute="bottom" constant="-1" id="haq-GN-Qu7"/>
                             <constraint firstItem="LA4-lm-MyA" firstAttribute="top" secondItem="HBT-tv-4ML" secondAttribute="bottom" id="uMY-cz-98n"/>
                             <constraint firstAttribute="trailing" secondItem="HBT-tv-4ML" secondAttribute="trailing" id="yqK-5F-hD7"/>
                         </constraints>

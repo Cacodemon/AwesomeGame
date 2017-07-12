@@ -7,6 +7,7 @@
 //
 
 #import "AGMainMenuViewController.h"
+#import "AGAlert.h"
 
 @interface AGMainMenuViewController ()
 
@@ -19,11 +20,15 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)didPressNewGame:(id)sender {
+    [AGAlert showAlertWithMessageText:@"Do you really want to start a new game?\nAll progress will be lost."
+                      firstButtonText:@"Yes"
+                     secondButtonText:@"No"
+                     firstButtonBlock:^{
+                         
+                     } secondButtonBlock:^{
+                         
+                     }];
 }
-
 
 @end

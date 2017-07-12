@@ -41,7 +41,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                 <state key="normal" title="New Game"/>
                                 <connections>
-                                    <segue destination="GeP-UX-ynH" kind="show" id="PJp-Zk-ZCO"/>
+                                    <action selector="didPressNewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bZc-lA-l02"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdM-iZ-Y42">
@@ -373,7 +373,4 @@
             <point key="canvasLocation" x="3322" y="-457"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="qCW-jT-LLB"/>
-    </inferredMetricsTieBreakers>
 </document>

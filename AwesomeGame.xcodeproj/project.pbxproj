@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */; };
+		CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */; };
+		CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */; };
 		CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5461F0F6F2B00F18BE7 /* main.m */; };
 		CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5491F0F6F2B00F18BE7 /* AppDelegate.m */; };
 		CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B54C1F0F6F2B00F18BE7 /* AGMainMenuViewController.m */; };
@@ -25,6 +27,9 @@
 /* Begin PBXFileReference section */
 		CEAA8C6D1F16200000BC3CD7 /* UIColor+AwesomeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AwesomeGame.h"; sourceTree = "<group>"; };
 		CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AwesomeGame.m"; sourceTree = "<group>"; };
+		CEAA8C711F162BCF00BC3CD7 /* AGAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAlert.h; sourceTree = "<group>"; };
+		CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGAlert.m; sourceTree = "<group>"; };
+		CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGAlert.xib; sourceTree = "<group>"; };
 		CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0B5461F0F6F2B00F18BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +74,16 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		CEAA8C761F162BD900BC3CD7 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA8C711F162BCF00BC3CD7 /* AGAlert.h */,
+				CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */,
+				CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */,
+			);
+			name = Alerts;
+			sourceTree = "<group>";
+		};
 		CEF0B5391F0F6F2B00F18BE7 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +105,7 @@
 			children = (
 				CEAA8C701F16200700BC3CD7 /* Categories */,
 				CEF0B5BA1F13930F00F18BE7 /* Managers */,
+				CEAA8C761F162BD900BC3CD7 /* Alerts */,
 				CEF0B5B61F138B0A00F18BE7 /* Table Cells */,
 				CEF0B5681F0F972900F18BE7 /* View Controllers */,
 				CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */,
@@ -204,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */,
 				CEF0B5551F0F6F2B00F18BE7 /* LaunchScreen.storyboard in Resources */,
 				CEF0B5521F0F6F2B00F18BE7 /* Assets.xcassets in Resources */,
 				CEF0B5501F0F6F2B00F18BE7 /* Main.storyboard in Resources */,
@@ -226,6 +243,7 @@
 				CEF0B5641F0F96FB00F18BE7 /* AGGameViewController.m in Sources */,
 				CEF0B55E1F0F953400F18BE7 /* AGHighscoresViewController.m in Sources */,
 				CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */,
+				CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */,
 				CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -54,7 +54,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                 <state key="normal" title="Resume"/>
                                 <connections>
-                                    <segue destination="GeP-UX-ynH" kind="show" id="qCW-jT-LLB"/>
+                                    <segue destination="GeP-UX-ynH" kind="show" identifier="showGameViewController" id="qCW-jT-LLB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cah-HU-KDj">
@@ -133,7 +133,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="qoB-yT-qQj" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="311-YA-nMs"/>
+                                            <action selector="didPressMenuButton:" destination="GeP-UX-ynH" eventType="touchUpInside" id="i3f-Id-VF2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -278,64 +278,6 @@
             </objects>
             <point key="canvasLocation" x="2224.8000000000002" y="554.57271364317842"/>
         </scene>
-        <!--Ingame Menu View Controller-->
-        <scene sceneID="4V9-6A-WyK">
-            <objects>
-                <viewController id="qoB-yT-qQj" customClass="AGIngameMenuViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NjC-Om-HRz"/>
-                        <viewControllerLayoutGuide type="bottom" id="4qX-eD-Hlt"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="MeS-fB-DjH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXW-q2-7iV">
-                                <rect key="frame" x="54" y="164" width="267" height="339"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rW-sO-8NN">
-                                        <rect key="frame" x="72" y="240" width="114" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.2459175329643509" green="0.82697134067357514" blue="0.64208192067317738" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <state key="normal" title="Quit">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="didPressQuitButton:" destination="qoB-yT-qQj" eventType="touchUpInside" id="eaC-PQ-pwK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xkJ-ea-n25">
-                                        <rect key="frame" x="72" y="167" width="114" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.82697134067357514" green="0.51939761326342004" blue="0.19872831532675894" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <state key="normal" title="Resume">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="didPressResumeButton:" destination="qoB-yT-qQj" eventType="touchUpInside" id="0CR-Og-Ex3"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.66148737489506781" green="0.53052804347687654" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="267" id="Ka1-n7-Ayb"/>
-                                    <constraint firstAttribute="height" constant="339" id="lTP-Xj-0iT"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="hXW-q2-7iV" firstAttribute="centerY" secondItem="MeS-fB-DjH" secondAttribute="centerY" id="Fa6-2W-gRL"/>
-                            <constraint firstItem="hXW-q2-7iV" firstAttribute="centerX" secondItem="MeS-fB-DjH" secondAttribute="centerX" id="ysT-ub-Nnt"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e73-n3-hGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3322" y="155"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cc6-mh-2Ow">
             <objects>
@@ -370,7 +312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6iQ-QM-BUo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3322" y="-457"/>
+            <point key="canvasLocation" x="3262" y="-152"/>
         </scene>
     </scenes>
 </document>

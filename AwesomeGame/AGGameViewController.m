@@ -7,31 +7,36 @@
 //
 
 #import "AGGameViewController.h"
+#import "AGAlert.h"
 
 @interface AGGameViewController ()
+
+- (void)goToMainMenu;
 
 @end
 
 @implementation AGGameViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+#pragma mark - Private
+
+- (void)goToMainMenu {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [(UINavigationController*)self.presentingViewController popToRootViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Actions
 
-/*
-#pragma mark - Navigation
+- (IBAction)didPressMenuButton:(id)sender {
+    [AGAlert showAlertWithMessageText:@"MENU"
+                      firstButtonText:@"Resume"
+                     secondButtonText:@"Quit"
+                     firstButtonBlock:^{
+                         
+                     } secondButtonBlock:^{
+                         [self goToMainMenu];
+                     }];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
 
 @end

@@ -72,27 +72,32 @@
 #pragma mark - Public Methods
 
 - (void)show {
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+    [self setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+    [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:self animated:YES completion:nil];
 }
 
 #pragma mark - Private Methods
 
 - (void)hideWithCompletion:(void (^)(void))completion {
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] dismissViewControllerAnimated:YES completion:completion];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:completion];
 }
 
 #pragma mark - Actions
 
 - (IBAction)didPressFirstButton:(id)sender {
     [self hideWithCompletion:^{
-        self.firstButtonBlock();
+        if (self.firstButtonBlock) {
+            self.firstButtonBlock();
+        }
     }];
 }
 
 - (IBAction)didPressSecondButton:(id)sender {
     [self hideWithCompletion:^{
-        self.secondButtonBlock();
+        if (self.secondButtonBlock) {
+            self.secondButtonBlock();
+        }
     }];
 }
 

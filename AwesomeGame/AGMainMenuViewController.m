@@ -20,12 +20,20 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+#pragma mark - Navigation
+
+- (void)showGameViewController {
+    [self performSegueWithIdentifier:@"showGameViewController" sender:nil];
+}
+
+#pragma mark - Actions
+
 - (IBAction)didPressNewGame:(id)sender {
     [AGAlert showAlertWithMessageText:@"Do you really want to start a new game?\nAll progress will be lost."
                       firstButtonText:@"Yes"
                      secondButtonText:@"No"
                      firstButtonBlock:^{
-                         
+                         [self showGameViewController];
                      } secondButtonBlock:^{
                          
                      }];

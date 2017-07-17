@@ -10,6 +10,7 @@
 		CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */; };
 		CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */; };
 		CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */; };
+		CEAA8C7F1F18EBFC00BC3CD7 /* AGGameItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */; };
 		CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5461F0F6F2B00F18BE7 /* main.m */; };
 		CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5491F0F6F2B00F18BE7 /* AppDelegate.m */; };
 		CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B54C1F0F6F2B00F18BE7 /* AGMainMenuViewController.m */; };
@@ -29,6 +30,8 @@
 		CEAA8C711F162BCF00BC3CD7 /* AGAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAlert.h; sourceTree = "<group>"; };
 		CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGAlert.m; sourceTree = "<group>"; };
 		CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGAlert.xib; sourceTree = "<group>"; };
+		CEAA8C7D1F18EBFC00BC3CD7 /* AGGameItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameItemView.h; sourceTree = "<group>"; };
+		CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameItemView.m; sourceTree = "<group>"; };
 		CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0B5461F0F6F2B00F18BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -112,6 +115,8 @@
 				CEF0B5531F0F6F2B00F18BE7 /* LaunchScreen.storyboard */,
 				CEF0B5561F0F6F2B00F18BE7 /* Info.plist */,
 				CEF0B5451F0F6F2B00F18BE7 /* Supporting Files */,
+				CEAA8C7D1F18EBFC00BC3CD7 /* AGGameItemView.h */,
+				CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */,
 			);
 			path = AwesomeGame;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF0B5B51F138AF900F18BE7 /* AGHighscoresTableViewCell.m in Sources */,
+				CEAA8C7F1F18EBFC00BC3CD7 /* AGGameItemView.m in Sources */,
 				CEF0B5671F0F970F00F18BE7 /* AGGameFieldViewController.m in Sources */,
 				CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */,
 				CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */,

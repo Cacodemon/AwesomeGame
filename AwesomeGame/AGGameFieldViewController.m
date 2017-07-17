@@ -7,8 +7,11 @@
 //
 
 #import "AGGameFieldViewController.h"
+#import "AGGameItemView.h"
 
 @interface AGGameFieldViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *gameItemsView;
 
 @end
 
@@ -16,22 +19,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    NSUInteger n = 5;
+    NSUInteger m = 5;
+    
+    CGFloat margin = 5;
+    
+    CGFloat containerWidth = self.gameItemsView.frame.size.width;
+    CGFloat containerHeight = self.gameItemsView.frame.size.height;
+    
+    CGFloat itemWidth = (containerWidth / (CGFloat)n);
+    CGFloat itemHeight = (containerHeight / (CGFloat)m);
+    
+    for (NSUInteger i = 0; i < n; i++) {
+        for (NSUInteger j = 0; j < m; j++) {
+            CGFloat itemX = i * itemWidth;
+            CGFloat itemY = j * itemHeight;
+            CGRect itemFrame = CGRectMake(itemX + margin, itemY + margin, itemWidth - margin * 2, itemHeight - margin * 2);
+            AGGameItemView *itemView = [[AGGameItemView alloc] initWithFrame:itemFrame];
+            
+            itemView.autoresizingMask =
+            UIViewAutoresizingFlexibleLeftMargin |
+            UIViewAutoresizingFlexibleWidth |
+            UIViewAutoresizingFlexibleRightMargin |
+            UIViewAutoresizingFlexibleTopMargin |
+            UIViewAutoresizingFlexibleHeight |
+            UIViewAutoresizingFlexibleBottomMargin;
+            
+            itemView.translatesAutoresizingMaskIntoConstraints = YES;
+            itemView.backgroundColor = [UIColor redColor];
+            
+            [self.gameItemsView addSubview:itemView];
+        }
+    }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

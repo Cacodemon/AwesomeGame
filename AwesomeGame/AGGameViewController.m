@@ -22,7 +22,6 @@
 
 - (void)goToMainMenu {
     [self.navigationController popToRootViewControllerAnimated:YES];
-//    [(UINavigationController*)self.presentingViewController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Actions

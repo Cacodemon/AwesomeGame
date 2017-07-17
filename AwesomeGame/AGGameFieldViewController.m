@@ -8,10 +8,14 @@
 
 #import "AGGameFieldViewController.h"
 #import "AGGameItemView.h"
+#import "AGGameEngine.h"
 
 @interface AGGameFieldViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *gameItemsView;
+
+- (void)subscribeToNotifications;
+- (void)unsubscribeFromNotifications;
 
 @end
 
@@ -52,6 +56,31 @@
             [self.gameItemsView addSubview:itemView];
         }
     }
+    
+    [self subscribeToNotifications];
+}
+
+- (void)dealloc {
+    [self unsubscribeFromNotifications];
+}
+
+#pragma mark - Natifications
+
+- (void)subscribeToNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processItemsDidMoveNotification) name:AGGameItemsDidMoveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processItemsDidMoveNotification) name:AGGameItemsDidDeleteNotification object:nil];
+}
+
+- (void)unsubscribeFromNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)processItemsDidMoveNotification {
+    
+}
+
+- (void)processItemsDidDeleteNotification {
+    
 }
 
 @end

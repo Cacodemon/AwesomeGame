@@ -8,56 +8,101 @@
 
 #import "AGGameEngine.h"
 
+NSString * const AGGameItemsDidMoveNotification = @"AGGameItemDidMoveNotification";
+NSString * const AGGameItemsDidDeleteNotification = @"AGGameItemDidDeleteNotification";
+NSString * const kAGGameItems = @"kAGGameItems";
+
 @interface AGGameEngine ()
 
-@property NSUInteger n;
 @property NSUInteger m;
+@property NSUInteger n;
+
+@property BOOL canRevertUserAction;
 
 @property (nonatomic, strong) NSArray *gameField;
 
-- (void)fillGaps;
-- (NSArray*)matchingItems;
-- (void)removeItems:(NSArray*)items;
+- (void)notifyAboutItemsMovement:(NSArray*)items;
+- (void)notifyAboutItemsDeletion:(NSArray*)items;
 
-- (void)notifyAboutRemovingItems:(NSArray*)removedItems;
-- (void)notifyAboutMovingItems:(NSArray*)movedItems;
-- (void)notifyAboutCreatingItems:(NSArray*)createdItems;
+- (void)applyUserAction;
+- (void)checkMatchingItems;
+- (void)fillGaps;
+- (void)deleteItems:(NSArray*)items;
+- (void)revertUserAction;
 
 @end
 
 @implementation AGGameEngine
 
-- (instancetype)initWithHorizontalItemsCount:(NSUInteger)n verticalItemsCount:(NSUInteger)m {
+#pragma mark - Constructors
+
+- (instancetype)initWithHorizontalItemsCount:(NSUInteger)m
+                          verticalItemsCount:(NSUInteger)n {
     return nil;
 }
 
-- (void)swapItemsAtX0:(NSUInteger)x0 y0:(NSUInteger)y0 witItemAtX1:(NSUInteger)x1 y1:(NSUInteger)y1 {
-    //swap itmems
-    NSArray *matchingItems = [self matchingItems];
+#pragma mark - Public Mathods
+
+- (void)swapItemAtX0:(NSUInteger)x0
+                  y0:(NSUInteger)y0
+        withItemAtX1:(NSUInteger)x1
+                  y1:(NSUInteger)y1 {
+    [self applyUserAction];
+}
+
+#pragma mark - Private
+
+- (void)applyUserAction {
+    //todo: do stuff
+    //todo: notifyAboutItemsMovement
+    self.canRevertUserAction = YES;
+    [self checkMatchingItems];
+}
+
+- (void)checkMatchingItems {
+    NSArray *matchingItems = [NSArray new];
+    //todo: fill matchingItems
     if (matchingItems.count > 0) {
-        [self removeItems:matchingItems];
+        self.canRevertUserAction = NO;
+        [self deleteItems:matchingItems];
     } else {
-        //undo swap
+        if (self.canRevertUserAction == YES) {
+            [self revertUserAction];
+        }
+        else {
+            //go to "awaiting input" state
+        }
     }
 }
 
 - (void)fillGaps {
-    
+    NSArray *newItems = [NSArray new];
+    //todo: generate new items
+    [self notifyAboutItemsMovement:newItems];
+    [self checkMatchingItems];
 }
 
-- (NSArray*)matchingItems {
-    NSArray *result = [NSArray new];
-    //do work
-    return result;
+- (void)deleteItems:(NSArray*)items {
+    //todo: do stuff
+    [self notifyAboutItemsDeletion:items];
+    [self fillGaps];
 }
 
-- (void)removeItems:(NSArray*)items {
-    if (items.count > 0) {
-        //do work
-        [self notifyAboutRemovingItems:items];
-        [self fillGaps];
-    }
-    
+- (void)revertUserAction {
+    //todo: do stuff
+    //todo: notifyAboutItemsMovement
+}
+
+#pragma mark - Notifications
+
+- (void)notifyAboutItemsMovement:(NSArray*)items {
+    NSNotification *notification = [NSNotification notificationWithName:AGGameItemsDidMoveNotification object:nil userInfo:@{kAGGameItems : items}];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+- (void)notifyAboutItemsDeletion:(NSArray*)items {
+    NSNotification *notification = [NSNotification notificationWithName:AGGameItemsDidDeleteNotification object:nil userInfo:@{kAGGameItems : items}];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 @end

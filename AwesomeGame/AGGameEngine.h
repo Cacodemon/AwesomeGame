@@ -8,9 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const AGGameItemsDidMoveNotification;
+extern NSString * const AGGameItemsDidDeleteNotification;
+extern NSString * const kAGGameItems;
+
 @interface AGGameEngine : NSObject
 
-- (instancetype)initWithHorizontalItemsCount:(NSUInteger)n verticalItemsCount:(NSUInteger)m;
-- (void)swapItemsAtX0:(NSUInteger)x0 y0:(NSUInteger)y0 witItemAtX1:(NSUInteger)x1 y1:(NSUInteger)y1;
+- (instancetype)initWithHorizontalItemsCount:(NSUInteger)m
+                          verticalItemsCount:(NSUInteger)n;
+
+- (void)swapItemAtX0:(NSUInteger)x0
+                  y0:(NSUInteger)y0
+        withItemAtX1:(NSUInteger)x1
+                  y1:(NSUInteger)y1;
 
 @end

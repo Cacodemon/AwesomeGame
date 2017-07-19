@@ -10,6 +10,6 @@
 
 @interface AGGameItemView : UIView
 
-    
+@property (nonatomic) NSUInteger type;
 
 @end

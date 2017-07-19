@@ -7,23 +7,28 @@
 //
 
 #import "AGGameEngine.h"
+#import "AGGameItemTransition.h"
 
 NSString * const AGGameItemsDidMoveNotification = @"AGGameItemDidMoveNotification";
 NSString * const AGGameItemsDidDeleteNotification = @"AGGameItemDidDeleteNotification";
 NSString * const kAGGameItems = @"kAGGameItems";
+NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 @interface AGGameEngine ()
 
-@property NSUInteger m;
-@property NSUInteger n;
+@property NSUInteger horizontalItemsCount;
+@property NSUInteger verticalItemsCount;
+@property NSUInteger itemTypesCount;
 
 @property BOOL canRevertUserAction;
 
-@property (nonatomic, strong) NSArray *gameField;
+@property (nonatomic, strong) NSMutableArray *gameField;
 
 - (void)notifyAboutItemsMovement:(NSArray*)items;
 - (void)notifyAboutItemsDeletion:(NSArray*)items;
 
+- (void)configureGameField;
+- (NSUInteger)generateNewItemType;
 - (void)applyUserAction;
 - (void)checkMatchingItems;
 - (void)fillGaps;
@@ -36,12 +41,21 @@ NSString * const kAGGameItems = @"kAGGameItems";
 
 #pragma mark - Constructors
 
-- (instancetype)initWithHorizontalItemsCount:(NSUInteger)m
-                          verticalItemsCount:(NSUInteger)n {
-    return nil;
+- (instancetype)initWithHorizontalItemsCount:(NSUInteger)horizontalItemsCount
+                          verticalItemsCount:(NSUInteger)verticalItemsCount
+                              itemTypesCount:(NSUInteger)itemTypesCount {
+    self = [super init];
+    if (self) {
+        self.horizontalItemsCount = horizontalItemsCount;
+        self.verticalItemsCount = verticalItemsCount;
+        self.itemTypesCount = itemTypesCount;
+        [self configureGameField];
+        [self fillGaps];
+    }
+    return self;
 }
 
-#pragma mark - Public Mathods
+#pragma mark - Public Methods
 
 - (void)swapItemAtX0:(NSUInteger)x0
                   y0:(NSUInteger)y0
@@ -51,6 +65,22 @@ NSString * const kAGGameItems = @"kAGGameItems";
 }
 
 #pragma mark - Private
+
+- (void)configureGameField {
+    self.gameField = [NSMutableArray arrayWithCapacity:self.horizontalItemsCount];
+    for (NSUInteger i = 0; i < self.horizontalItemsCount; i++) {
+        NSMutableArray *column = [NSMutableArray arrayWithCapacity:self.verticalItemsCount];
+        for (NSUInteger j = 0; j < self.verticalItemsCount; j++) {
+            [column addObject:[NSNull null]];
+        }
+        [self.gameField addObject:column];
+    }
+}
+
+- (NSUInteger)generateNewItemType {
+    NSUInteger result = arc4random_uniform(INT_MAX) % self.itemTypesCount;
+    return result;
+}
 
 - (void)applyUserAction {
     //todo: do stuff
@@ -76,9 +106,24 @@ NSString * const kAGGameItems = @"kAGGameItems";
 }
 
 - (void)fillGaps {
-    NSArray *newItems = [NSArray new];
-    //todo: generate new items
-    [self notifyAboutItemsMovement:newItems];
+    NSMutableArray *newItemTransitions = [NSMutableArray new];
+    for (NSUInteger i = 0; i < self.horizontalItemsCount; i++) {
+        for (NSUInteger j = 0; j < self.verticalItemsCount; j++) {
+            if (self.gameField[i][j] == [NSNull null]) {
+                NSUInteger newItemType = [self generateNewItemType];
+                self.gameField[i][j] = @(newItemType);
+                AGGameItemTransition *itemTransition = [AGGameItemTransition new];
+                itemTransition.x0 = i;
+                itemTransition.y0 = -j - 1;
+                itemTransition.x1 = i;
+                itemTransition.y1 = j;
+                itemTransition.type = newItemType;
+                [newItemTransitions addObject:itemTransition];
+            }
+        }
+    }
+    
+    [self notifyAboutItemsMovement:newItemTransitions];
     [self checkMatchingItems];
 }
 
@@ -93,15 +138,21 @@ NSString * const kAGGameItems = @"kAGGameItems";
     //todo: notifyAboutItemsMovement
 }
 
+
+
 #pragma mark - Notifications
 
-- (void)notifyAboutItemsMovement:(NSArray*)items {
-    NSNotification *notification = [NSNotification notificationWithName:AGGameItemsDidMoveNotification object:nil userInfo:@{kAGGameItems : items}];
+- (void)notifyAboutItemsMovement:(NSArray*)itemTransitions {
+    NSNotification *notification = [NSNotification notificationWithName:AGGameItemsDidMoveNotification
+                                                                 object:nil
+                                                               userInfo:@{kAGGameItemTransitions : itemTransitions}];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)notifyAboutItemsDeletion:(NSArray*)items {
-    NSNotification *notification = [NSNotification notificationWithName:AGGameItemsDidDeleteNotification object:nil userInfo:@{kAGGameItems : items}];
+    NSNotification *notification = [NSNotification notificationWithName:AGGameItemsDidDeleteNotification
+                                                                 object:nil
+                                                               userInfo:@{kAGGameItems : items}];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 

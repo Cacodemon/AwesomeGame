@@ -11,7 +11,9 @@
 		CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */; };
 		CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */; };
 		CEAA8C7F1F18EBFC00BC3CD7 /* AGGameItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */; };
-		CEAA8C821F1CC04900BC3CD7 /* AGGameEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C811F1CC04900BC3CD7 /* AGGameEngine.m */; };
+		CEAA8CB91F1D3B2C00BC3CD7 /* AGGameItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8CB51F1D382B00BC3CD7 /* AGGameItem.m */; };
+		CEAA8CBA1F1D3B2F00BC3CD7 /* AGGameEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */; };
+		CEAA8CD41F1F614800BC3CD7 /* AGGameItemTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */; };
 		CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5461F0F6F2B00F18BE7 /* main.m */; };
 		CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5491F0F6F2B00F18BE7 /* AppDelegate.m */; };
 		CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B54C1F0F6F2B00F18BE7 /* AGMainMenuViewController.m */; };
@@ -33,8 +35,12 @@
 		CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGAlert.xib; sourceTree = "<group>"; };
 		CEAA8C7D1F18EBFC00BC3CD7 /* AGGameItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameItemView.h; sourceTree = "<group>"; };
 		CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameItemView.m; sourceTree = "<group>"; };
-		CEAA8C801F1CC04900BC3CD7 /* AGGameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameEngine.h; sourceTree = "<group>"; };
-		CEAA8C811F1CC04900BC3CD7 /* AGGameEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameEngine.m; sourceTree = "<group>"; };
+		CEAA8CB21F1D382B00BC3CD7 /* AGGameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameEngine.h; sourceTree = "<group>"; };
+		CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameEngine.m; sourceTree = "<group>"; };
+		CEAA8CB41F1D382B00BC3CD7 /* AGGameItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameItem.h; sourceTree = "<group>"; };
+		CEAA8CB51F1D382B00BC3CD7 /* AGGameItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameItem.m; sourceTree = "<group>"; };
+		CEAA8CD21F1F614800BC3CD7 /* AGGameItemTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameItemTransition.h; sourceTree = "<group>"; };
+		CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameItemTransition.m; sourceTree = "<group>"; };
 		CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0B5461F0F6F2B00F18BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,11 +96,25 @@
 		CEAA8C831F1CC06E00BC3CD7 /* Custom UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				CEAA8C761F162BD900BC3CD7 /* Alerts */,
 				CEF0B5B61F138B0A00F18BE7 /* Table Cells */,
 				CEAA8C7D1F18EBFC00BC3CD7 /* AGGameItemView.h */,
 				CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */,
 			);
 			name = "Custom UI Elements";
+			sourceTree = "<group>";
+		};
+		CEAA8CB81F1D383200BC3CD7 /* Game Engine */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA8CB21F1D382B00BC3CD7 /* AGGameEngine.h */,
+				CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */,
+				CEAA8CB41F1D382B00BC3CD7 /* AGGameItem.h */,
+				CEAA8CB51F1D382B00BC3CD7 /* AGGameItem.m */,
+				CEAA8CD21F1F614800BC3CD7 /* AGGameItemTransition.h */,
+				CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */,
+			);
+			name = "Game Engine";
 			sourceTree = "<group>";
 		};
 		CEF0B5391F0F6F2B00F18BE7 = {
@@ -116,11 +136,9 @@
 		CEF0B5441F0F6F2B00F18BE7 /* AwesomeGame */ = {
 			isa = PBXGroup;
 			children = (
-				CEAA8C801F1CC04900BC3CD7 /* AGGameEngine.h */,
-				CEAA8C811F1CC04900BC3CD7 /* AGGameEngine.m */,
+				CEAA8CB81F1D383200BC3CD7 /* Game Engine */,
 				CEAA8C701F16200700BC3CD7 /* Categories */,
 				CEF0B5BA1F13930F00F18BE7 /* Managers */,
-				CEAA8C761F162BD900BC3CD7 /* Alerts */,
 				CEAA8C831F1CC06E00BC3CD7 /* Custom UI Elements */,
 				CEF0B5681F0F972900F18BE7 /* View Controllers */,
 				CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */,
@@ -249,16 +267,18 @@
 			files = (
 				CEF0B5B51F138AF900F18BE7 /* AGHighscoresTableViewCell.m in Sources */,
 				CEAA8C7F1F18EBFC00BC3CD7 /* AGGameItemView.m in Sources */,
+				CEAA8CB91F1D3B2C00BC3CD7 /* AGGameItem.m in Sources */,
 				CEF0B5671F0F970F00F18BE7 /* AGGameFieldViewController.m in Sources */,
 				CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */,
 				CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */,
+				CEAA8CBA1F1D3B2F00BC3CD7 /* AGGameEngine.m in Sources */,
 				CEF0B5B91F13930700F18BE7 /* AGHighscoresManager.m in Sources */,
 				CEF0B5641F0F96FB00F18BE7 /* AGGameViewController.m in Sources */,
 				CEF0B55E1F0F953400F18BE7 /* AGHighscoresViewController.m in Sources */,
 				CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */,
-				CEAA8C821F1CC04900BC3CD7 /* AGGameEngine.m in Sources */,
 				CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */,
 				CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */,
+				CEAA8CD41F1F614800BC3CD7 /* AGGameItemTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

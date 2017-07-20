@@ -110,6 +110,7 @@
         frame.origin = [self xyCoordinatesFromI:i j:j];
         frame.size = self.itemSize;
         result = [self createGameItemViewWithFrame:frame type:type];
+        self.gameField[i][j] = result;
     }
     
     return result;

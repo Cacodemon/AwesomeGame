@@ -24,8 +24,6 @@
 - (UIColor*)colorForType:(NSUInteger)type {
     UIColor *result = nil;
     
-    NSLog(@"%lu", (unsigned long)type);
-    
     switch (type) {
         case 1:
             result = [UIColor redColor];

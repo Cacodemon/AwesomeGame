@@ -112,67 +112,71 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
     NSMutableArray *matchingItems = [NSMutableArray arrayWithCapacity:10];
     
     //C
-    size_t array_size = self.itemTypesCount * sizeof(int);
-    int *counters = (int*)malloc(array_size);
+    size_t array_size = self.itemTypesCount * sizeof(NSUInteger);
+    NSUInteger *counters = (NSUInteger*)malloc(array_size);
     
     for (NSUInteger i = 0; i < self.horizontalItemsCount; i++) {
         memset(counters, 0, array_size);
-        counters[[self.gameField[i][0] unsignedIntegerValue]] = 1;
-        for (NSUInteger j = 1; j < self.verticalItemsCount; j++) {
-            NSUInteger previousValue = [self.gameField[i][j-1] unsignedIntegerValue];
+        for (NSUInteger j = 0; j < self.verticalItemsCount; j++) {
             NSUInteger currentValue = [self.gameField[i][j] unsignedIntegerValue];
+            NSUInteger nextValue = INT_MAX;
+            if (j < self.verticalItemsCount-1) {
+                nextValue = [self.gameField[i][j+1] unsignedIntegerValue];
+            }
             counters[currentValue]++;
-            if (currentValue != previousValue) {
-                int sequence_length = counters[previousValue];
+            if (currentValue != nextValue) {
+                NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
                     AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
                     matchingSequence.i0 = i;
-                    matchingSequence.j0 = j - sequence_length;
+                    matchingSequence.j0 = j - sequence_length + 1;
                     matchingSequence.i1 = i;
-                    matchingSequence.j1 = j - 1;
+                    matchingSequence.j1 = j;
                     [matchingItems addObject:matchingSequence];
                 }
-                counters[previousValue] = 0;
+                counters[currentValue] = 0;
             }
         }
     }
     
     for (NSUInteger j = 0; j < self.verticalItemsCount; j++) {
         memset(counters, 0, array_size);
-        counters[[self.gameField[0][j] unsignedIntegerValue]] = 1;
-        for (NSUInteger i = 1; i < self.horizontalItemsCount; i++) {
-            NSUInteger previousValue = [self.gameField[i-1][j] unsignedIntegerValue];
+        for (NSUInteger i = 0; i < self.horizontalItemsCount; i++) {
             NSUInteger currentValue = [self.gameField[i][j] unsignedIntegerValue];
+            NSUInteger nextValue = INT_MAX;
+            if (i < self.horizontalItemsCount-1) {
+                nextValue = [self.gameField[i+1][j] unsignedIntegerValue];
+            }
             counters[currentValue]++;
-            if (currentValue != previousValue) {
-                int sequence_length = counters[previousValue];
+            if (currentValue != nextValue) {
+                NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
                     AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.i0 = i - sequence_length;
+                    matchingSequence.i0 = i - sequence_length + 1;
                     matchingSequence.j0 = j;
-                    matchingSequence.i1 = i - 1;
+                    matchingSequence.i1 = i;
                     matchingSequence.j1 = j;
                     [matchingItems addObject:matchingSequence];
                 }
-                counters[previousValue] = 0;
+                counters[currentValue] = 0;
             }
         }
     }
     
     free(counters);
-    //end of pure C
+    //end of C
     
-//    if (matchingItems.count > 0) {
-//        self.canRevertUserAction = NO;
-//        [self deleteItems:matchingItems];
-//    } else {
-//        if (self.canRevertUserAction == YES) {
-//            [self revertUserAction];
-//        }
-//        else {
-//            //go to "awaiting input" state
-//        }
-//    }
+    if (matchingItems.count > 0) {
+        self.canRevertUserAction = NO;
+        [self deleteItems:matchingItems];
+    } else {
+        if (self.canRevertUserAction == YES) {
+            [self revertUserAction];
+        }
+        else {
+            //go to "awaiting input" state
+        }
+    }
 }
 
 - (void)fillGaps {

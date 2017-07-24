@@ -9,16 +9,6 @@
 #import "AGGameEngine.h"
 #import "AGGameItemTransition.h"
 
-@interface AGMatchingSequence : NSObject
-
-@property NSInteger i0;
-@property NSInteger j0;
-
-@property NSInteger i1;
-@property NSInteger j1;
-
-@end;
-
 @implementation AGMatchingSequence
 
 - (NSString*)description {
@@ -51,7 +41,7 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 - (void)applyUserAction;
 - (void)checkMatchingItems;
 - (void)fillGaps;
-- (void)deleteItems:(NSArray*)items;
+- (void)deleteItems:(NSArray*)matchingSequences;
 - (void)revertUserAction;
 
 @end
@@ -182,16 +172,27 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 - (void)fillGaps {
     NSMutableArray *newItemTransitions = [NSMutableArray new];
     for (NSUInteger i = 0; i < self.horizontalItemsCount; i++) {
-        for (NSUInteger j = 0; j < self.verticalItemsCount; j++) {
+        for (NSInteger j = self.verticalItemsCount - 1; j >= 0; j--) {
             if (self.gameField[i][j] == [NSNull null]) {
-                NSUInteger newItemType = [self generateNewItemType];
-                self.gameField[i][j] = @(newItemType);
+                
                 AGGameItemTransition *itemTransition = [AGGameItemTransition new];
                 itemTransition.x0 = i;
-                itemTransition.y0 = -j - 1;
                 itemTransition.x1 = i;
                 itemTransition.y1 = j;
-                itemTransition.type = newItemType;
+                
+                if ((j != 0) && (self.gameField[i][j-1] != [NSNull null])) {
+                    self.gameField[i][j] = self.gameField[i][j-1];
+                    self.gameField[i][j-1] = [NSNull null];
+                    itemTransition.y0 = j - 1;
+                    itemTransition.type = [self.gameField[i][j] integerValue];
+                }
+                else {
+                    NSUInteger newItemType = [self generateNewItemType];
+                    self.gameField[i][j] = @(newItemType);
+                    itemTransition.y0 = -j - 1;
+                    itemTransition.type = newItemType;
+                }
+                
                 [newItemTransitions addObject:itemTransition];
             }
         }
@@ -201,9 +202,17 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
     [self checkMatchingItems];
 }
 
-- (void)deleteItems:(NSArray*)items {
-    //todo: do stuff
-    [self notifyAboutItemsDeletion:items];
+- (void)deleteItems:(NSArray*)matchingSequences {
+    
+    for (AGMatchingSequence *matchingSequence in matchingSequences) {
+        for (NSUInteger i = matchingSequence.i0; i <= matchingSequence.i1; i++) {
+            for (NSUInteger j = matchingSequence.j0; j <= matchingSequence.j1; j++) {
+                self.gameField[i][j] = [NSNull null];
+            }
+        }
+    }
+    
+    [self notifyAboutItemsDeletion:matchingSequences];
     [self fillGaps];
 }
 

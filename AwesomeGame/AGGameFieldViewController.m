@@ -22,6 +22,8 @@
 @property NSUInteger itemTypesCount;
 @property CGSize itemSize;
 
+@property (strong) dispatch_queue_t animationQueue;
+
 - (void)configureGame;
 - (CGPoint)xyCoordinatesFromI:(NSInteger)i j:(NSInteger)j;
 - (AGGameItemView*)createGameItemViewWithFrame:(CGRect)frame type:(NSUInteger)type;
@@ -39,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.animationQueue = dispatch_queue_create("com.unique.name.queue", DISPATCH_QUEUE_SERIAL);
     [self subscribeToNotifications];
     [self configureGame];
 }
@@ -53,7 +56,7 @@
     
     self.horizontalItemsCount = 8;
     self.verticalItemsCount = 8;
-    self.itemTypesCount = 5;
+    self.itemTypesCount = 4;
     
     self.itemSize = CGSizeMake(self.gameItemsView.frame.size.width / self.horizontalItemsCount,
                                self.gameItemsView.frame.size.height / self.verticalItemsCount);
@@ -119,7 +122,7 @@
 
 - (void)subscribeToNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processItemsDidMoveNotification:) name:AGGameItemsDidMoveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processItemsDidMoveNotification:) name:AGGameItemsDidDeleteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processItemsDidDeleteNotification:) name:AGGameItemsDidDeleteNotification object:nil];
 }
 
 - (void)unsubscribeFromNotifications {
@@ -130,24 +133,64 @@
     
     NSArray *itemTransitions = notification.userInfo[kAGGameItemTransitions];
     
-    for (AGGameItemTransition *itemTransition in itemTransitions) {
-    
-        AGGameItemView *gameItemView = [self gameItemViewAtI:itemTransition.x0 j:itemTransition.y0 type:itemTransition.type];
+    dispatch_async(self.animationQueue, ^{
         
-        CGRect endFrame = CGRectZero;
-        endFrame.size = gameItemView.frame.size;
-        endFrame.origin = [self xyCoordinatesFromI:itemTransition.x1 j:itemTransition.y1];
+        dispatch_group_t animationGroup = dispatch_group_create();
         
-        [UIView animateWithDuration:1 animations:^{
-            gameItemView.frame = endFrame;
-        } completion:^(BOOL finished) {
-            self.gameField[itemTransition.x1][itemTransition.y1] = gameItemView;
-        }];
-    }
+        for (AGGameItemTransition *itemTransition in itemTransitions) {
+            
+            dispatch_group_enter(animationGroup);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                AGGameItemView *gameItemView = [self gameItemViewAtI:itemTransition.x0 j:itemTransition.y0 type:itemTransition.type];
+                CGRect endFrame = CGRectZero;
+                endFrame.size = gameItemView.frame.size;
+                endFrame.origin = [self xyCoordinatesFromI:itemTransition.x1 j:itemTransition.y1];
+                self.gameField[itemTransition.x1][itemTransition.y1] = gameItemView;
+        
+                [UIView animateWithDuration:2 animations:^{
+                    gameItemView.frame = endFrame;
+                } completion:^(BOOL finished) {
+                    dispatch_group_leave(animationGroup);
+                }];
+            });
+        }
+        dispatch_group_wait(animationGroup, DISPATCH_TIME_FOREVER);
+    });
 }
 
 - (void)processItemsDidDeleteNotification:(NSNotification *)notification {
     
+    NSArray *matchingSequences = notification.userInfo[kAGGameItems];
+    
+    dispatch_async(self.animationQueue, ^{
+        
+        dispatch_group_t animationGroup = dispatch_group_create();
+        
+        for (AGMatchingSequence *matchingSequence in matchingSequences) {
+            for (NSUInteger i = matchingSequence.i0; i <= matchingSequence.i1; i++) {
+                for (NSUInteger j = matchingSequence.j0; j <= matchingSequence.j1; j++) {
+                    
+                    dispatch_group_enter(animationGroup);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [UIView animateWithDuration:2 animations:^{
+                            if (self.gameField[i][j] != [NSNull null]) {
+                                [self.gameField[i][j] setAlpha:0.0];
+                            }
+                        } completion:^(BOOL finished) {
+                            if (self.gameField[i][j] != [NSNull null]) {
+                                [self.gameField[i][j] removeFromSuperview];
+                                self.gameField[i][j] = [NSNull null];
+                            }
+                            dispatch_group_leave(animationGroup);
+                        }];
+                    });
+                }
+            }
+        }
+        dispatch_group_wait(animationGroup, DISPATCH_TIME_FOREVER);
+    });
 }
 
 @end

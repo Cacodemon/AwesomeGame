@@ -25,3 +25,13 @@ extern NSString * const kAGGameItemTransitions;
                   y1:(NSUInteger)y1;
 
 @end
+
+@interface AGMatchingSequence : NSObject
+
+@property NSInteger i0;
+@property NSInteger j0;
+
+@property NSInteger i1;
+@property NSInteger j1;
+
+@end;

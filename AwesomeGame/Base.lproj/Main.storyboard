@@ -320,10 +320,7 @@
                                     <constraint firstAttribute="width" secondItem="dcW-9z-iMj" secondAttribute="height" multiplier="1:1" id="TUc-zv-LNp"/>
                                 </constraints>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="YhS-Nv-Sbc" appends="YES" id="Ug3-h0-0M6"/>
-                                    <outletCollection property="gestureRecognizers" destination="i2W-Lz-g83" appends="YES" id="5C1-Eq-I02"/>
-                                    <outletCollection property="gestureRecognizers" destination="Kv9-jE-vYt" appends="YES" id="7he-88-LTN"/>
-                                    <outletCollection property="gestureRecognizers" destination="r5q-bz-vpZ" appends="YES" id="ZvJ-4o-Bww"/>
+                                    <outletCollection property="gestureRecognizers" destination="0yz-RZ-WHB" appends="YES" id="UVK-BA-7x1"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -339,26 +336,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6k-yQ-gjD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="YhS-Nv-Sbc" userLabel="Right">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="0yz-RZ-WHB">
                     <connections>
-                        <action selector="didRecognizeSwipeRight:" destination="817-sp-lAx" id="Dzu-KT-FB3"/>
+                        <action selector="didRecognizePan:" destination="817-sp-lAx" id="io2-7K-2Qb"/>
                     </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="i2W-Lz-g83" userLabel="Left">
-                    <connections>
-                        <action selector="didRecognizeSwipeLeft:" destination="817-sp-lAx" id="LEC-b0-Uyd"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="down" id="Kv9-jE-vYt" userLabel="Down">
-                    <connections>
-                        <action selector="didRecognizeSwipeDown:" destination="817-sp-lAx" id="v8u-r4-TPL"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="r5q-bz-vpZ" userLabel="Up">
-                    <connections>
-                        <action selector="didRecognizeSwipeUp:" destination="817-sp-lAx" id="j1H-0O-Lzw"/>
-                    </connections>
-                </swipeGestureRecognizer>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3186" y="-152"/>
         </scene>

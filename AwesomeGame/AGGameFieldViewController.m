@@ -62,7 +62,7 @@ static const NSTimeInterval animationDuration = .5;
     
     self.horizontalItemsCount = 8;
     self.verticalItemsCount = 8;
-    self.itemTypesCount = 4;
+    self.itemTypesCount = 5;
     
     self.itemSize = CGSizeMake(self.gameItemsView.frame.size.width / self.horizontalItemsCount,
                                self.gameItemsView.frame.size.height / self.verticalItemsCount);
@@ -211,39 +211,62 @@ static const NSTimeInterval animationDuration = .5;
 
 #pragma mark - Gesture Recognizers
 
-- (IBAction)didRecognizeSwipeRight:(UISwipeGestureRecognizer *)sender {
-    NSInteger i = 0;
-    NSInteger j = 0;
-    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
-    if (i < (self.horizontalItemsCount - 1)) {
-        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i + 1) y1:j];
+- (IBAction)didRecognizePan:(UIPanGestureRecognizer *)sender {
+    
+    static CGPoint startingLocation;
+    static CGPoint currentLocation;
+    static BOOL finished;
+    
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+            startingLocation = [sender locationInView:self.gameItemsView];
+            currentLocation = startingLocation;
+            finished = NO;
+            break;
+        case UIGestureRecognizerStateChanged:
+            currentLocation = [sender locationInView:self.gameItemsView];
+            break;
+        default:
+            return;
     }
-}
+    
+    if (!finished ) {
+        CGFloat deltaX = currentLocation.x - startingLocation.x;
+        CGFloat deltaY = currentLocation.y - startingLocation.y;
+        
+        if ((fabs(deltaX) > (self.itemSize.width / 3)) || (fabs(deltaY) > (self.itemSize.height / 3))) {
+            
+            finished = YES;
 
-- (IBAction)didRecognizeSwipeLeft:(UISwipeGestureRecognizer *)sender {
-    NSInteger i = 0;
-    NSInteger j = 0;
-    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
-    if (i > 0) {
-        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i - 1) y1:j];
-    }
-}
-
-- (IBAction)didRecognizeSwipeDown:(UISwipeGestureRecognizer *)sender {
-    NSInteger i = 0;
-    NSInteger j = 0;
-    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
-    if (j < (self.verticalItemsCount - 1)) {
-        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j + 1)];
-    }
-}
-
-- (IBAction)didRecognizeSwipeUp:(UISwipeGestureRecognizer *)sender {
-    NSInteger i = 0;
-    NSInteger j = 0;
-    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
-    if (j > 0) {
-        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j - 1)];
+            NSInteger i = 0;
+            NSInteger j = 0;
+            
+            if (fabs(deltaX) > fabs(deltaY)) {
+                if (deltaX > 0) {
+                    [self getI:&i j:&j fromPoint:startingLocation];
+                    if (i < (self.horizontalItemsCount - 1)) {
+                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i + 1) y1:j];
+                    }
+                } else {
+                    [self getI:&i j:&j fromPoint:startingLocation];
+                    if (i > 0) {
+                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i - 1) y1:j];
+                    }
+                }
+            } else {
+                if (deltaY > 0) {
+                    [self getI:&i j:&j fromPoint:startingLocation];
+                    if (j < (self.verticalItemsCount - 1)) {
+                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j + 1)];
+                    }
+                } else {
+                    [self getI:&i j:&j fromPoint:startingLocation];
+                    if (j > 0) {
+                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j - 1)];
+                    }
+                }
+            }
+        }
     }
 }
 

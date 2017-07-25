@@ -11,7 +11,7 @@
 #import "AGGameEngine.h"
 #import "AGGameItemTransition.h"
 
-static const NSTimeInterval animationDuration = 2.0;
+static const NSTimeInterval animationDuration = .5;
 
 @interface AGGameFieldViewController ()
 
@@ -28,6 +28,7 @@ static const NSTimeInterval animationDuration = 2.0;
 
 - (void)configureGame;
 - (CGPoint)xyCoordinatesFromI:(NSInteger)i j:(NSInteger)j;
+- (void)getI:(NSInteger*)i j:(NSInteger*)j fromPoint:(CGPoint)point;
 - (AGGameItemView*)createGameItemViewWithFrame:(CGRect)frame type:(NSUInteger)type;
 - (AGGameItemView*)gameItemViewAtI:(NSInteger)i j:(NSInteger)j type:(NSUInteger)type;
 
@@ -105,6 +106,11 @@ static const NSTimeInterval animationDuration = 2.0;
     return result;
 }
 
+- (void)getI:(NSInteger*)i j:(NSInteger*)j fromPoint:(CGPoint)point {
+    *i = point.x / self.itemSize.width;
+    *j = point.y / self.itemSize.height;
+}
+
 - (AGGameItemView*)gameItemViewAtI:(NSInteger)i j:(NSInteger)j type:(NSUInteger)type{
     
     AGGameItemView *result = nil;
@@ -151,11 +157,11 @@ static const NSTimeInterval animationDuration = 2.0;
                 CGRect endFrame = CGRectZero;
                 endFrame.size = gameItemView.frame.size;
                 endFrame.origin = [self xyCoordinatesFromI:itemTransition.x1 j:itemTransition.y1];
-                self.gameField[itemTransition.x1][itemTransition.y1] = gameItemView;
         
                 [UIView animateWithDuration:animationDuration animations:^{
                     gameItemView.frame = endFrame;
                 } completion:^(BOOL finished) {
+                    self.gameField[itemTransition.x1][itemTransition.y1] = gameItemView;
                     dispatch_group_leave(animationGroup);
                 }];
             });
@@ -201,6 +207,44 @@ static const NSTimeInterval animationDuration = 2.0;
         
         dispatch_group_wait(animationGroup, DISPATCH_TIME_FOREVER);
     });
+}
+
+#pragma mark - Gesture Recognizers
+
+- (IBAction)didRecognizeSwipeRight:(UISwipeGestureRecognizer *)sender {
+    NSInteger i = 0;
+    NSInteger j = 0;
+    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
+    if (i < (self.horizontalItemsCount - 1)) {
+        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i + 1) y1:j];
+    }
+}
+
+- (IBAction)didRecognizeSwipeLeft:(UISwipeGestureRecognizer *)sender {
+    NSInteger i = 0;
+    NSInteger j = 0;
+    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
+    if (i > 0) {
+        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i - 1) y1:j];
+    }
+}
+
+- (IBAction)didRecognizeSwipeDown:(UISwipeGestureRecognizer *)sender {
+    NSInteger i = 0;
+    NSInteger j = 0;
+    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
+    if (j < (self.verticalItemsCount - 1)) {
+        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j + 1)];
+    }
+}
+
+- (IBAction)didRecognizeSwipeUp:(UISwipeGestureRecognizer *)sender {
+    NSInteger i = 0;
+    NSInteger j = 0;
+    [self getI:&i j:&j fromPoint:[sender locationInView:self.gameItemsView]];
+    if (j > 0) {
+        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j - 1)];
+    }
 }
 
 @end

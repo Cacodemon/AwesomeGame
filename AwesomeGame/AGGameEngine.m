@@ -70,6 +70,32 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
                   y0:(NSUInteger)y0
         withItemAtX1:(NSUInteger)x1
                   y1:(NSUInteger)y1 {
+    
+    NSLog(@"(%ld; %ld) -> (%ld; %ld)", (long)x0, (long)y0, (long)x1, (long)y1);
+    id tmp = self.gameField[x0][y0];
+    self.gameField[x0][y0] = self.gameField[x1][y1];
+    self.gameField[x1][y1] = tmp;
+    
+    NSMutableArray *newItemTransitions = [NSMutableArray new];
+    
+    AGGameItemTransition *itemTransition = [AGGameItemTransition new];
+    itemTransition.x0 = x0;
+    itemTransition.y0 = y0;
+    itemTransition.x1 = x1;
+    itemTransition.y1 = y1;
+    itemTransition.type = [self.gameField[x0][y0] integerValue];
+    [newItemTransitions addObject:itemTransition];
+    
+    itemTransition = [AGGameItemTransition new];
+    itemTransition.x0 = x1;
+    itemTransition.y0 = y1;
+    itemTransition.x1 = x0;
+    itemTransition.y1 = y0;
+    itemTransition.type = [self.gameField[x1][y1] integerValue];
+    [newItemTransitions addObject:itemTransition];
+    
+    [self notifyAboutItemsMovement:newItemTransitions];
+    
     [self applyUserAction];
 }
 

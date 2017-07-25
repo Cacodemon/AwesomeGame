@@ -179,18 +179,20 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
                 itemTransition.x0 = i;
                 itemTransition.x1 = i;
                 itemTransition.y1 = j;
+                itemTransition.y0 = j - self.verticalItemsCount;
                 
-                if ((j != 0) && (self.gameField[i][j-1] != [NSNull null])) {
-                    self.gameField[i][j] = self.gameField[i][j-1];
-                    self.gameField[i][j-1] = [NSNull null];
-                    itemTransition.y0 = j - 1;
-                    itemTransition.type = [self.gameField[i][j] integerValue];
-                }
-                else {
-                    NSUInteger newItemType = [self generateNewItemType];
-                    self.gameField[i][j] = @(newItemType);
-                    itemTransition.y0 = -j - 1;
-                    itemTransition.type = newItemType;
+                NSUInteger newItemType = [self generateNewItemType];
+                self.gameField[i][j] = @(newItemType);
+                itemTransition.type = newItemType;
+                
+                for (NSInteger k = j - 1; k >= 0; k--) {
+                    if (self.gameField[i][k] != [NSNull null]) {
+                        self.gameField[i][j] = self.gameField[i][k];
+                        self.gameField[i][k] = [NSNull null];
+                        itemTransition.y0 = k;
+                        itemTransition.type = [self.gameField[i][j] integerValue];
+                        break;
+                    }
                 }
                 
                 [newItemTransitions addObject:itemTransition];

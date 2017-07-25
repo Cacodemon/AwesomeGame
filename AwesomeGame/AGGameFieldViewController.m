@@ -11,6 +11,8 @@
 #import "AGGameEngine.h"
 #import "AGGameItemTransition.h"
 
+static const NSTimeInterval animationDuration = 2.0;
+
 @interface AGGameFieldViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *gameItemsView;
@@ -43,6 +45,9 @@
     
     self.animationQueue = dispatch_queue_create("com.unique.name.queue", DISPATCH_QUEUE_SERIAL);
     [self subscribeToNotifications];
+}
+
+- (void)viewDidLayoutSubviews {
     [self configureGame];
 }
 
@@ -148,7 +153,7 @@
                 endFrame.origin = [self xyCoordinatesFromI:itemTransition.x1 j:itemTransition.y1];
                 self.gameField[itemTransition.x1][itemTransition.y1] = gameItemView;
         
-                [UIView animateWithDuration:2 animations:^{
+                [UIView animateWithDuration:animationDuration animations:^{
                     gameItemView.frame = endFrame;
                 } completion:^(BOOL finished) {
                     dispatch_group_leave(animationGroup);
@@ -163,32 +168,37 @@
     
     NSArray *matchingSequences = notification.userInfo[kAGGameItems];
     
+    NSMutableSet *deletedItemsPositions = [NSMutableSet set];
+    
+    for (AGMatchingSequence *matchingSequence in matchingSequences) {
+        for (NSUInteger i = matchingSequence.i0; i <= matchingSequence.i1; i++) {
+            for (NSUInteger j = matchingSequence.j0; j <= matchingSequence.j1; j++) {
+                [deletedItemsPositions addObject:@{@"i" : @(i), @"j" : @(j)}];
+            }
+        }
+    }
+    
     dispatch_async(self.animationQueue, ^{
         
         dispatch_group_t animationGroup = dispatch_group_create();
         
-        for (AGMatchingSequence *matchingSequence in matchingSequences) {
-            for (NSUInteger i = matchingSequence.i0; i <= matchingSequence.i1; i++) {
-                for (NSUInteger j = matchingSequence.j0; j <= matchingSequence.j1; j++) {
-                    
-                    dispatch_group_enter(animationGroup);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [UIView animateWithDuration:2 animations:^{
-                            if (self.gameField[i][j] != [NSNull null]) {
-                                [self.gameField[i][j] setAlpha:0.0];
-                            }
-                        } completion:^(BOOL finished) {
-                            if (self.gameField[i][j] != [NSNull null]) {
-                                [self.gameField[i][j] removeFromSuperview];
-                                self.gameField[i][j] = [NSNull null];
-                            }
-                            dispatch_group_leave(animationGroup);
-                        }];
-                    });
-                }
-            }
+        for (NSDictionary *coordinates in deletedItemsPositions) {
+            dispatch_group_enter(animationGroup);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                NSUInteger i = [coordinates[@"i"] unsignedIntegerValue];
+                NSUInteger j = [coordinates[@"j"] unsignedIntegerValue];
+                
+                [UIView animateWithDuration:animationDuration animations:^{
+                        [self.gameField[i][j] setAlpha:0.0];
+                } completion:^(BOOL finished) {
+                        [self.gameField[i][j] removeFromSuperview];
+                        self.gameField[i][j] = [NSNull null];
+                    dispatch_group_leave(animationGroup);
+                }];
+            });
         }
+        
         dispatch_group_wait(animationGroup, DISPATCH_TIME_FOREVER);
     });
 }

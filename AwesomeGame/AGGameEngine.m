@@ -31,6 +31,11 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 @property BOOL canRevertUserAction;
 
+@property NSUInteger userX0;
+@property NSUInteger userY0;
+@property NSUInteger userX1;
+@property NSUInteger userY1;
+
 @property (nonatomic, strong) NSMutableArray *gameField;
 
 - (void)notifyAboutItemsMovement:(NSArray*)items;
@@ -95,6 +100,11 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
     [newItemTransitions addObject:itemTransition];
     
     [self notifyAboutItemsMovement:newItemTransitions];
+    
+    self.userX0 = x0;
+    self.userY0 = y0;
+    self.userX1 = x1;
+    self.userY1 = y1;
     
     [self applyUserAction];
 }
@@ -245,8 +255,37 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 }
 
 - (void)revertUserAction {
-    //todo: do stuff
-    //todo: notifyAboutItemsMovement
+    
+    NSUInteger x0 = self.userX0;
+    NSUInteger y0 = self.userY0;
+    NSUInteger x1 = self.userX1;
+    NSUInteger y1 = self.userY1;
+    
+    id tmp = self.gameField[x0][y0];
+    self.gameField[x0][y0] = self.gameField[x1][y1];
+    self.gameField[x1][y1] = tmp;
+    
+    NSMutableArray *newItemTransitions = [NSMutableArray new];
+    
+    AGGameItemTransition *itemTransition = [AGGameItemTransition new];
+    itemTransition.x0 = x0;
+    itemTransition.y0 = y0;
+    itemTransition.x1 = x1;
+    itemTransition.y1 = y1;
+    itemTransition.type = [self.gameField[x0][y0] integerValue];
+    [newItemTransitions addObject:itemTransition];
+    
+    itemTransition = [AGGameItemTransition new];
+    itemTransition.x0 = x1;
+    itemTransition.y0 = y1;
+    itemTransition.x1 = x0;
+    itemTransition.y1 = y0;
+    itemTransition.type = [self.gameField[x1][y1] integerValue];
+    [newItemTransitions addObject:itemTransition];
+    
+    [self notifyAboutItemsMovement:newItemTransitions];
+    
+    self.canRevertUserAction = NO;
 }
 
 

@@ -11,14 +11,36 @@
 
 @implementation AGGameItemView
 
+- (instancetype)initWithFrame:(CGRect)frame type:(NSUInteger)type {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _type = type;
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
     
     CALayer *layer = self.layer;
     
     layer.masksToBounds = YES;
-    layer.cornerRadius = 20.0;
+    layer.cornerRadius = 15.0;
     layer.borderWidth = 3.0;
     layer.borderColor = [[UIColor whiteColor] CGColor];
+    
+    self.autoresizingMask =
+    UIViewAutoresizingFlexibleLeftMargin |
+    UIViewAutoresizingFlexibleWidth |
+    UIViewAutoresizingFlexibleRightMargin |
+    UIViewAutoresizingFlexibleTopMargin |
+    UIViewAutoresizingFlexibleHeight |
+    UIViewAutoresizingFlexibleBottomMargin;
+    
+    self.translatesAutoresizingMaskIntoConstraints = YES;
+}
+
+- (void)didMoveToSuperview {
+    [self setBackgroundColor:[self colorForType:self.type]];
 }
 
 - (UIColor*)colorForType:(NSUInteger)type {
@@ -51,13 +73,6 @@
     }
     
     return result;
-}
-
-- (void)setType:(NSUInteger)type {
-    if (type != _type) {
-        _type = type;
-    }
-    [self setBackgroundColor:[self colorForType:_type]];
 }
 
 @end

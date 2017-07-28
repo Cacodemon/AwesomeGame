@@ -83,21 +83,9 @@ static const NSTimeInterval animationDuration = .5;
 }
 
 - (AGGameItemView*)createGameItemViewWithFrame:(CGRect)frame type:(NSUInteger)type{
-    AGGameItemView *itemView = [[AGGameItemView alloc] initWithFrame:frame];
     
-    itemView.autoresizingMask =
-    UIViewAutoresizingFlexibleLeftMargin |
-    UIViewAutoresizingFlexibleWidth |
-    UIViewAutoresizingFlexibleRightMargin |
-    UIViewAutoresizingFlexibleTopMargin |
-    UIViewAutoresizingFlexibleHeight |
-    UIViewAutoresizingFlexibleBottomMargin;
-    
-    itemView.translatesAutoresizingMaskIntoConstraints = YES;
-    itemView.type = type;
-    
+    AGGameItemView *itemView = [[AGGameItemView alloc] initWithFrame:frame type:type];
     [self.gameItemsView addSubview:itemView];
-    
     return itemView;
 }
 

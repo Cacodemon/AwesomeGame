@@ -10,6 +10,8 @@
 
 @interface AGGameItemView : UIView
 
-@property (nonatomic) NSUInteger type;
+- (instancetype)initWithFrame:(CGRect)frame type:(NSUInteger)type;
+
+@property (readonly, nonatomic) NSUInteger type;
 
 @end

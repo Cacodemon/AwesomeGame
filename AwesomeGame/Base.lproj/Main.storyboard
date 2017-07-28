@@ -312,7 +312,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="595"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-9z-iMj">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcW-9z-iMj">
                                 <rect key="frame" x="0.0" y="110" width="375" height="375"/>
                                 <color key="backgroundColor" red="0.29828605679999998" green="0.68037564770000003" blue="0.29620003690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>

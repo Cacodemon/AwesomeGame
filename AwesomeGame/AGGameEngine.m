@@ -9,14 +9,6 @@
 #import "AGGameEngine.h"
 #import "AGGameItemTransition.h"
 
-@implementation AGMatchingSequence
-
-- (NSString*)description {
-    return [NSString stringWithFormat:@"(%ld, %ld) -> (%ld, %ld)", (long)self.startingPoint.i, (long)self.startingPoint.j, (long)self.endingPoint.i, (long)self.endingPoint.j];
-}
-
-@end
-
 
 NSString * const AGGameItemsDidMoveNotification = @"AGGameItemDidMoveNotification";
 NSString * const AGGameItemsDidDeleteNotification = @"AGGameItemDidDeleteNotification";
@@ -145,10 +137,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
             if (currentValue != nextValue) {
                 NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
-                    AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.startingPoint = AGPointMake(i, (j - sequence_length + 1));
-                    matchingSequence.endingPoint = AGPointMake(i, j);
-                    [matchingItems addObject:matchingSequence];
+                    AGPointRange range = AGPointRangeMake(i, (j - sequence_length + 1), i, j);
+                    [matchingItems addObject:@(range)];
                 }
                 counters[currentValue] = 0;
             }
@@ -167,10 +157,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
             if (currentValue != nextValue) {
                 NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
-                    AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.startingPoint = AGPointMake((i - sequence_length + 1), j);
-                    matchingSequence.endingPoint = AGPointMake(i, j);
-                    [matchingItems addObject:matchingSequence];
+                    AGPointRange range = AGPointRangeMake((i - sequence_length + 1), j, i, j);
+                    [matchingItems addObject:@(range)];
                 }
                 counters[currentValue] = 0;
             }
@@ -230,9 +218,11 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 - (void)deleteItems:(NSArray*)matchingSequences {
     
-    for (AGMatchingSequence *matchingSequence in matchingSequences) {
-        for (NSUInteger i = matchingSequence.startingPoint.i; i <= matchingSequence.endingPoint.i; i++) {
-            for (NSUInteger j = matchingSequence.startingPoint.j; j <= matchingSequence.endingPoint.j; j++) {
+    for (NSValue *value in matchingSequences) {
+        AGPointRange range;
+        [value getValue:&range];
+        for (NSUInteger i = range.p0.i; i <= range.p1.i; i++) {
+            for (NSUInteger j = range.p0.j; j <= range.p1.j; j++) {
                 self.gameField[i][j] = [NSNull null];
             }
         }

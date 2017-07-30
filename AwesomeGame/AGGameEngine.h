@@ -24,10 +24,3 @@ extern NSString * const kAGGameItemTransitions;
         withItemAtPoint1:(AGPoint)p1;
 
 @end
-
-@interface AGMatchingSequence : NSObject
-
-@property AGPoint startingPoint;
-@property AGPoint endingPoint;
-
-@end;

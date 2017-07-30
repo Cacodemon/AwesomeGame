@@ -27,10 +27,10 @@ static const NSTimeInterval animationDuration = .5;
 @property (strong) dispatch_queue_t animationQueue;
 
 - (void)configureGame;
-- (CGPoint)xyCoordinatesFromI:(NSInteger)i j:(NSInteger)j;
-- (void)getI:(NSInteger*)i j:(NSInteger*)j fromPoint:(CGPoint)point;
+- (CGPoint)CGPointFromAGPoint:(AGPoint)p;
+- (AGPoint)AGPointFromCGPoint:(CGPoint)p;
 - (AGGameItemView*)createGameItemViewWithFrame:(CGRect)frame type:(NSUInteger)type;
-- (AGGameItemView*)gameItemViewAtI:(NSInteger)i j:(NSInteger)j type:(NSUInteger)type;
+- (AGGameItemView*)gameItemViewAtPoint:(AGPoint)p type:(NSUInteger)type;
 
 - (void)subscribeToNotifications;
 - (void)unsubscribeFromNotifications;
@@ -89,27 +89,27 @@ static const NSTimeInterval animationDuration = .5;
     return itemView;
 }
 
-- (CGPoint)xyCoordinatesFromI:(NSInteger)i j:(NSInteger)j {
-    CGPoint result = CGPointMake(i * self.itemSize.width, j * self.itemSize.height);
+- (CGPoint)CGPointFromAGPoint:(AGPoint)p {
+    CGPoint result = CGPointMake((p.i * self.itemSize.width), (p.j * self.itemSize.height));
     return result;
 }
 
-- (void)getI:(NSInteger*)i j:(NSInteger*)j fromPoint:(CGPoint)point {
-    *i = point.x / self.itemSize.width;
-    *j = point.y / self.itemSize.height;
+- (AGPoint)AGPointFromCGPoint:(CGPoint)p {
+    AGPoint result = AGPointMake((p.x / self.itemSize.width), (p.y / self.itemSize.height));
+    return result;
 }
 
-- (AGGameItemView*)gameItemViewAtI:(NSInteger)i j:(NSInteger)j type:(NSUInteger)type{
+- (AGGameItemView*)gameItemViewAtPoint:(AGPoint)p type:(NSUInteger)type {
     
     AGGameItemView *result = nil;
     
-    if ((i >= 0) && (i < self.horizontalItemsCount) && (j >= 0) && (j < self.verticalItemsCount)) {
-        result = self.gameField[i][j];
+    if ((p.i >= 0) && (p.i < self.horizontalItemsCount) && (p.j >= 0) && (p.j < self.verticalItemsCount)) {
+        result = self.gameField[p.i][p.j];
     }
     
     if ((result == nil) || (result == (AGGameItemView*)[NSNull null])) {
         CGRect frame = CGRectZero;
-        frame.origin = [self xyCoordinatesFromI:i j:j];
+        frame.origin = [self CGPointFromAGPoint:p];
         frame.size = self.itemSize;
         result = [self createGameItemViewWithFrame:frame type:type];
     }
@@ -141,10 +141,10 @@ static const NSTimeInterval animationDuration = .5;
             dispatch_group_enter(animationGroup);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                AGGameItemView *gameItemView = [self gameItemViewAtI:itemTransition.x0 j:itemTransition.y0 type:itemTransition.type];
+                AGGameItemView *gameItemView = [self gameItemViewAtPoint:AGPointMake(itemTransition.x0, itemTransition.y0) type:itemTransition.type];
                 CGRect endFrame = CGRectZero;
                 endFrame.size = gameItemView.frame.size;
-                endFrame.origin = [self xyCoordinatesFromI:itemTransition.x1 j:itemTransition.y1];
+                endFrame.origin = [self CGPointFromAGPoint:AGPointMake(itemTransition.x1, itemTransition.y1)];
         
                 [UIView animateWithDuration:animationDuration animations:^{
                     gameItemView.frame = endFrame;
@@ -164,10 +164,12 @@ static const NSTimeInterval animationDuration = .5;
     
     NSMutableSet *deletedItemsPositions = [NSMutableSet set];
     
-    for (AGMatchingSequence *matchingSequence in matchingSequences) {
-        for (NSUInteger i = matchingSequence.startingPoint.i; i <= matchingSequence.endingPoint.i; i++) {
-            for (NSUInteger j = matchingSequence.startingPoint.j; j <= matchingSequence.endingPoint.j; j++) {
-                [deletedItemsPositions addObject:@{@"i" : @(i), @"j" : @(j)}];
+    for (NSValue *value in matchingSequences) {
+        AGPointRange range;
+        [value getValue:&range];
+        for (NSUInteger i = range.p0.i; i <= range.p1.i; i++) {
+            for (NSUInteger j = range.p0.j; j <= range.p1.j; j++) {
+                [deletedItemsPositions addObject:@(AGPointMake(i, j))];
             }
         }
     }
@@ -176,18 +178,18 @@ static const NSTimeInterval animationDuration = .5;
         
         dispatch_group_t animationGroup = dispatch_group_create();
         
-        for (NSDictionary *coordinates in deletedItemsPositions) {
+        for (NSValue *value in deletedItemsPositions) {
             dispatch_group_enter(animationGroup);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                NSUInteger i = [coordinates[@"i"] unsignedIntegerValue];
-                NSUInteger j = [coordinates[@"j"] unsignedIntegerValue];
+                AGPoint p;
+                [value getValue:&p];
                 
                 [UIView animateWithDuration:animationDuration animations:^{
-                        [self.gameField[i][j] setAlpha:0.0];
+                        [self.gameField[p.i][p.j] setAlpha:0.0];
                 } completion:^(BOOL finished) {
-                        [self.gameField[i][j] removeFromSuperview];
-                        self.gameField[i][j] = [NSNull null];
+                        [self.gameField[p.i][p.j] removeFromSuperview];
+                        self.gameField[p.i][p.j] = [NSNull null];
                     dispatch_group_leave(animationGroup);
                 }];
             });
@@ -225,36 +227,31 @@ static const NSTimeInterval animationDuration = .5;
         if ((fabs(deltaX) > (self.itemSize.width / 3)) || (fabs(deltaY) > (self.itemSize.height / 3))) {
             
             finished = YES;
-
-            NSInteger i = 0;
-            NSInteger j = 0;
+            
+            AGPoint p0 = [self AGPointFromCGPoint:startingLocation];
             
             if (fabs(deltaX) > fabs(deltaY)) {
                 if (deltaX > 0) {
-                    [self getI:&i j:&j fromPoint:startingLocation];
-                    if (i < (self.horizontalItemsCount - 1)) {
-                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
-                                         withItemAtPoint1:AGPointMake((i + 1), j)];
+                    if (p0.i < (self.horizontalItemsCount - 1)) {
+                        AGPoint p1 = AGPointMake((p0.i + 1), p0.j);
+                        [self.gameEngine swapItemAtPiont0:p0 withItemAtPoint1:p1];
                     }
                 } else {
-                    [self getI:&i j:&j fromPoint:startingLocation];
-                    if (i > 0) {
-                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
-                                         withItemAtPoint1:AGPointMake((i - 1), j)];
+                    if (p0.i > 0) {
+                        AGPoint p1 = AGPointMake((p0.i - 1), p0.j);
+                        [self.gameEngine swapItemAtPiont0:p0 withItemAtPoint1:p1];
                     }
                 }
             } else {
                 if (deltaY > 0) {
-                    [self getI:&i j:&j fromPoint:startingLocation];
-                    if (j < (self.verticalItemsCount - 1)) {
-                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
-                                         withItemAtPoint1:AGPointMake(i, (j + 1))];
+                    if (p0.j < (self.verticalItemsCount - 1)) {
+                        AGPoint p1 = AGPointMake(p0.i, (p0.j + 1));
+                        [self.gameEngine swapItemAtPiont0:p0 withItemAtPoint1:p1];
                     }
                 } else {
-                    [self getI:&i j:&j fromPoint:startingLocation];
-                    if (j > 0) {
-                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
-                                         withItemAtPoint1:AGPointMake(i, (j - 1))];
+                    if (p0.j > 0) {
+                        AGPoint p1 = AGPointMake(p0.i, (p0.j - 1));
+                        [self.gameEngine swapItemAtPiont0:p0 withItemAtPoint1:p1];
                     }
                 }
             }

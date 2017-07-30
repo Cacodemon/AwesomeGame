@@ -15,13 +15,13 @@ struct AGIntegerPoint {
     NSInteger i;
     NSInteger j;
 };
-typedef struct AGIntegerPoint AGIntegerPoint;
+typedef struct AGIntegerPoint AGPoint;
 
-extern const AGIntegerPoint AGIntegerPiontZero;
+extern const AGPoint AGPiontZero;
 
-static inline AGIntegerPoint AGIntegerPointMake(NSUInteger i, NSUInteger j)
+static inline AGPoint AGPointMake(NSUInteger i, NSUInteger j)
 {
-    AGIntegerPoint p; p.i = i; p.j = j; return p;
+    AGPoint p; p.i = i; p.j = j; return p;
 }
 
 #endif /* AGStructures_h */

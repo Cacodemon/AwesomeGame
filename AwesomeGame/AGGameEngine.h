@@ -20,14 +20,14 @@ extern NSString * const kAGGameItemTransitions;
                           verticalItemsCount:(NSUInteger)verticalItemsCount
                               itemTypesCount:(NSUInteger)itemTypesCount;
 
-- (void)swapItemAtPiont0:(AGIntegerPoint)p0
-        withItemAtPoint1:(AGIntegerPoint)p1;
+- (void)swapItemAtPiont0:(AGPoint)p0
+        withItemAtPoint1:(AGPoint)p1;
 
 @end
 
 @interface AGMatchingSequence : NSObject
 
-@property AGIntegerPoint startingPoint;
-@property AGIntegerPoint endingPoint;
+@property AGPoint startingPoint;
+@property AGPoint endingPoint;
 
 @end;

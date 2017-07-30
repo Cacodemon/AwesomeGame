@@ -31,8 +31,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 @property BOOL canRevertUserAction;
 
-@property AGIntegerPoint point0;
-@property AGIntegerPoint point1;
+@property AGPoint point0;
+@property AGPoint point1;
 
 @property (nonatomic, strong) NSMutableArray *gameField;
 
@@ -69,8 +69,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 #pragma mark - Public Methods
 
-- (void)swapItemAtPiont0:(AGIntegerPoint)p0
-        withItemAtPoint1:(AGIntegerPoint)p1 {
+- (void)swapItemAtPiont0:(AGPoint)p0
+        withItemAtPoint1:(AGPoint)p1 {
 
     NSLog(@"(%ld; %ld) -> (%ld; %ld)", (long)p0.i, (long)p0.j, (long)p1.i, (long)p1.j);
     id tmp = self.gameField[p0.i][p0.j];
@@ -146,8 +146,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
                 NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
                     AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.startingPoint = AGIntegerPointMake(i, (j - sequence_length + 1));
-                    matchingSequence.endingPoint = AGIntegerPointMake(i, j);
+                    matchingSequence.startingPoint = AGPointMake(i, (j - sequence_length + 1));
+                    matchingSequence.endingPoint = AGPointMake(i, j);
                     [matchingItems addObject:matchingSequence];
                 }
                 counters[currentValue] = 0;
@@ -168,8 +168,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
                 NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
                     AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.startingPoint = AGIntegerPointMake((i - sequence_length + 1), j);
-                    matchingSequence.endingPoint = AGIntegerPointMake(i, j);
+                    matchingSequence.startingPoint = AGPointMake((i - sequence_length + 1), j);
+                    matchingSequence.endingPoint = AGPointMake(i, j);
                     [matchingItems addObject:matchingSequence];
                 }
                 counters[currentValue] = 0;

@@ -233,28 +233,28 @@ static const NSTimeInterval animationDuration = .5;
                 if (deltaX > 0) {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (i < (self.horizontalItemsCount - 1)) {
-                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
-                                         withItemAtPoint1:AGIntegerPointMake((i + 1), j)];
+                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
+                                         withItemAtPoint1:AGPointMake((i + 1), j)];
                     }
                 } else {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (i > 0) {
-                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
-                                         withItemAtPoint1:AGIntegerPointMake((i - 1), j)];
+                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
+                                         withItemAtPoint1:AGPointMake((i - 1), j)];
                     }
                 }
             } else {
                 if (deltaY > 0) {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (j < (self.verticalItemsCount - 1)) {
-                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
-                                         withItemAtPoint1:AGIntegerPointMake(i, (j + 1))];
+                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
+                                         withItemAtPoint1:AGPointMake(i, (j + 1))];
                     }
                 } else {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (j > 0) {
-                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
-                                         withItemAtPoint1:AGIntegerPointMake(i, (j - 1))];
+                        [self.gameEngine swapItemAtPiont0:AGPointMake(i, j)
+                                         withItemAtPoint1:AGPointMake(i, (j - 1))];
                     }
                 }
             }

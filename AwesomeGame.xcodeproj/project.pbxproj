@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE5B67E51F2E1DBB009307E0 /* AGStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5B67E41F2E1DBB009307E0 /* AGStructures.m */; };
 		CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */; };
 		CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */; };
 		CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE5B67E31F2E1D39009307E0 /* AGStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGStructures.h; sourceTree = "<group>"; };
+		CE5B67E41F2E1DBB009307E0 /* AGStructures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGStructures.m; sourceTree = "<group>"; };
 		CEAA8C6D1F16200000BC3CD7 /* UIColor+AwesomeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AwesomeGame.h"; sourceTree = "<group>"; };
 		CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AwesomeGame.m"; sourceTree = "<group>"; };
 		CEAA8C711F162BCF00BC3CD7 /* AGAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAlert.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 				CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */,
 				CEAA8CD21F1F614800BC3CD7 /* AGGameItemTransition.h */,
 				CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */,
+				CE5B67E31F2E1D39009307E0 /* AGStructures.h */,
+				CE5B67E41F2E1DBB009307E0 /* AGStructures.m */,
 			);
 			name = "Game Engine";
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 				CEF0B5B91F13930700F18BE7 /* AGHighscoresManager.m in Sources */,
 				CEF0B5641F0F96FB00F18BE7 /* AGGameViewController.m in Sources */,
 				CEF0B55E1F0F953400F18BE7 /* AGHighscoresViewController.m in Sources */,
+				CE5B67E51F2E1DBB009307E0 /* AGStructures.m in Sources */,
 				CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */,
 				CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */,
 				CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */,

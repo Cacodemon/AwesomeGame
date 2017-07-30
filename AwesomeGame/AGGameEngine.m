@@ -12,7 +12,7 @@
 @implementation AGMatchingSequence
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"(%ld, %ld) -> (%ld, %ld)", (long)self.i0, (long)self.j0, (long)self.i1, (long)self.j1];
+    return [NSString stringWithFormat:@"(%ld, %ld) -> (%ld, %ld)", (long)self.startingPoint.i, (long)self.startingPoint.j, (long)self.endingPoint.i, (long)self.endingPoint.j];
 }
 
 @end
@@ -31,10 +31,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 @property BOOL canRevertUserAction;
 
-@property NSUInteger userX0;
-@property NSUInteger userY0;
-@property NSUInteger userX1;
-@property NSUInteger userY1;
+@property AGIntegerPoint point0;
+@property AGIntegerPoint point1;
 
 @property (nonatomic, strong) NSMutableArray *gameField;
 
@@ -71,40 +69,36 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 #pragma mark - Public Methods
 
-- (void)swapItemAtX0:(NSUInteger)x0
-                  y0:(NSUInteger)y0
-        withItemAtX1:(NSUInteger)x1
-                  y1:(NSUInteger)y1 {
-    
-    NSLog(@"(%ld; %ld) -> (%ld; %ld)", (long)x0, (long)y0, (long)x1, (long)y1);
-    id tmp = self.gameField[x0][y0];
-    self.gameField[x0][y0] = self.gameField[x1][y1];
-    self.gameField[x1][y1] = tmp;
+- (void)swapItemAtPiont0:(AGIntegerPoint)p0
+        withItemAtPoint1:(AGIntegerPoint)p1 {
+
+    NSLog(@"(%ld; %ld) -> (%ld; %ld)", (long)p0.i, (long)p0.j, (long)p1.i, (long)p1.j);
+    id tmp = self.gameField[p0.i][p0.j];
+    self.gameField[p0.i][p0.j] = self.gameField[p1.i][p1.j];
+    self.gameField[p1.i][p1.j] = tmp;
     
     NSMutableArray *newItemTransitions = [NSMutableArray new];
     
     AGGameItemTransition *itemTransition = [AGGameItemTransition new];
-    itemTransition.x0 = x0;
-    itemTransition.y0 = y0;
-    itemTransition.x1 = x1;
-    itemTransition.y1 = y1;
-    itemTransition.type = [self.gameField[x0][y0] integerValue];
+    itemTransition.x0 = p0.i;
+    itemTransition.y0 = p0.j;
+    itemTransition.x1 = p1.i;
+    itemTransition.y1 = p1.j;
+    itemTransition.type = [self.gameField[p0.i][p0.j] integerValue];
     [newItemTransitions addObject:itemTransition];
     
     itemTransition = [AGGameItemTransition new];
-    itemTransition.x0 = x1;
-    itemTransition.y0 = y1;
-    itemTransition.x1 = x0;
-    itemTransition.y1 = y0;
-    itemTransition.type = [self.gameField[x1][y1] integerValue];
+    itemTransition.x0 = p1.i;
+    itemTransition.y0 = p1.j;
+    itemTransition.x1 = p0.i;
+    itemTransition.y1 = p0.j;
+    itemTransition.type = [self.gameField[p1.i][p1.j] integerValue];
     [newItemTransitions addObject:itemTransition];
     
     [self notifyAboutItemsMovement:newItemTransitions];
     
-    self.userX0 = x0;
-    self.userY0 = y0;
-    self.userX1 = x1;
-    self.userY1 = y1;
+    self.point0 = p0;
+    self.point1 = p1;
     
     [self applyUserAction];
 }
@@ -128,8 +122,6 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 }
 
 - (void)applyUserAction {
-    //todo: do stuff
-    //todo: notifyAboutItemsMovement
     self.canRevertUserAction = YES;
     [self checkMatchingItems];
 }
@@ -154,10 +146,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
                 NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
                     AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.i0 = i;
-                    matchingSequence.j0 = j - sequence_length + 1;
-                    matchingSequence.i1 = i;
-                    matchingSequence.j1 = j;
+                    matchingSequence.startingPoint = AGIntegerPointMake(i, (j - sequence_length + 1));
+                    matchingSequence.endingPoint = AGIntegerPointMake(i, j);
                     [matchingItems addObject:matchingSequence];
                 }
                 counters[currentValue] = 0;
@@ -178,10 +168,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
                 NSUInteger sequence_length = counters[currentValue];
                 if (sequence_length >=3 ) {
                     AGMatchingSequence *matchingSequence = [AGMatchingSequence new];
-                    matchingSequence.i0 = i - sequence_length + 1;
-                    matchingSequence.j0 = j;
-                    matchingSequence.i1 = i;
-                    matchingSequence.j1 = j;
+                    matchingSequence.startingPoint = AGIntegerPointMake((i - sequence_length + 1), j);
+                    matchingSequence.endingPoint = AGIntegerPointMake(i, j);
                     [matchingItems addObject:matchingSequence];
                 }
                 counters[currentValue] = 0;
@@ -243,8 +231,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 - (void)deleteItems:(NSArray*)matchingSequences {
     
     for (AGMatchingSequence *matchingSequence in matchingSequences) {
-        for (NSUInteger i = matchingSequence.i0; i <= matchingSequence.i1; i++) {
-            for (NSUInteger j = matchingSequence.j0; j <= matchingSequence.j1; j++) {
+        for (NSUInteger i = matchingSequence.startingPoint.i; i <= matchingSequence.endingPoint.i; i++) {
+            for (NSUInteger j = matchingSequence.startingPoint.j; j <= matchingSequence.endingPoint.j; j++) {
                 self.gameField[i][j] = [NSNull null];
             }
         }
@@ -256,10 +244,10 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 - (void)revertUserAction {
     
-    NSUInteger x0 = self.userX0;
-    NSUInteger y0 = self.userY0;
-    NSUInteger x1 = self.userX1;
-    NSUInteger y1 = self.userY1;
+    NSUInteger x0 = self.point0.i;
+    NSUInteger y0 = self.point0.j;
+    NSUInteger x1 = self.point1.i;
+    NSUInteger y1 = self.point1.j;
     
     id tmp = self.gameField[x0][y0];
     self.gameField[x0][y0] = self.gameField[x1][y1];

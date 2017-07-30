@@ -165,8 +165,8 @@ static const NSTimeInterval animationDuration = .5;
     NSMutableSet *deletedItemsPositions = [NSMutableSet set];
     
     for (AGMatchingSequence *matchingSequence in matchingSequences) {
-        for (NSUInteger i = matchingSequence.i0; i <= matchingSequence.i1; i++) {
-            for (NSUInteger j = matchingSequence.j0; j <= matchingSequence.j1; j++) {
+        for (NSUInteger i = matchingSequence.startingPoint.i; i <= matchingSequence.endingPoint.i; i++) {
+            for (NSUInteger j = matchingSequence.startingPoint.j; j <= matchingSequence.endingPoint.j; j++) {
                 [deletedItemsPositions addObject:@{@"i" : @(i), @"j" : @(j)}];
             }
         }
@@ -233,24 +233,28 @@ static const NSTimeInterval animationDuration = .5;
                 if (deltaX > 0) {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (i < (self.horizontalItemsCount - 1)) {
-                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i + 1) y1:j];
+                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
+                                         withItemAtPoint1:AGIntegerPointMake((i + 1), j)];
                     }
                 } else {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (i > 0) {
-                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:(i - 1) y1:j];
+                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
+                                         withItemAtPoint1:AGIntegerPointMake((i - 1), j)];
                     }
                 }
             } else {
                 if (deltaY > 0) {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (j < (self.verticalItemsCount - 1)) {
-                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j + 1)];
+                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
+                                         withItemAtPoint1:AGIntegerPointMake(i, (j + 1))];
                     }
                 } else {
                     [self getI:&i j:&j fromPoint:startingLocation];
                     if (j > 0) {
-                        [self.gameEngine swapItemAtX0:i y0:j withItemAtX1:i y1:(j - 1)];
+                        [self.gameEngine swapItemAtPiont0:AGIntegerPointMake(i, j)
+                                         withItemAtPoint1:AGIntegerPointMake(i, (j - 1))];
                     }
                 }
             }

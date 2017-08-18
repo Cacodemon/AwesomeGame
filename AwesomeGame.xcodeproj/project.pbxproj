@@ -13,7 +13,6 @@
 		CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */; };
 		CEAA8C7F1F18EBFC00BC3CD7 /* AGGameItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */; };
 		CEAA8CBA1F1D3B2F00BC3CD7 /* AGGameEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */; };
-		CEAA8CD41F1F614800BC3CD7 /* AGGameItemTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */; };
 		CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5461F0F6F2B00F18BE7 /* main.m */; };
 		CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B5491F0F6F2B00F18BE7 /* AppDelegate.m */; };
 		CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0B54C1F0F6F2B00F18BE7 /* AGMainMenuViewController.m */; };
@@ -39,8 +38,6 @@
 		CEAA8C7E1F18EBFC00BC3CD7 /* AGGameItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameItemView.m; sourceTree = "<group>"; };
 		CEAA8CB21F1D382B00BC3CD7 /* AGGameEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameEngine.h; sourceTree = "<group>"; };
 		CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameEngine.m; sourceTree = "<group>"; };
-		CEAA8CD21F1F614800BC3CD7 /* AGGameItemTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGGameItemTransition.h; sourceTree = "<group>"; };
-		CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGGameItemTransition.m; sourceTree = "<group>"; };
 		CEF0B5421F0F6F2B00F18BE7 /* AwesomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0B5461F0F6F2B00F18BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF0B5481F0F6F2B00F18BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -109,8 +106,6 @@
 			children = (
 				CEAA8CB21F1D382B00BC3CD7 /* AGGameEngine.h */,
 				CEAA8CB31F1D382B00BC3CD7 /* AGGameEngine.m */,
-				CEAA8CD21F1F614800BC3CD7 /* AGGameItemTransition.h */,
-				CEAA8CD31F1F614800BC3CD7 /* AGGameItemTransition.m */,
 				CE5B67E31F2E1D39009307E0 /* AGStructures.h */,
 				CE5B67E41F2E1DBB009307E0 /* AGStructures.m */,
 			);
@@ -278,7 +273,6 @@
 				CEF0B54A1F0F6F2B00F18BE7 /* AppDelegate.m in Sources */,
 				CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */,
 				CEF0B5471F0F6F2B00F18BE7 /* main.m in Sources */,
-				CEAA8CD41F1F614800BC3CD7 /* AGGameItemTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,6 @@
 #import "AGGameFieldViewController.h"
 #import "AGGameItemView.h"
 #import "AGGameEngine.h"
-#import "AGGameItemTransition.h"
 
 static const NSTimeInterval animationDuration = .5;
 
@@ -136,20 +135,23 @@ static const NSTimeInterval animationDuration = .5;
         
         dispatch_group_t animationGroup = dispatch_group_create();
         
-        for (AGGameItemTransition *itemTransition in itemTransitions) {
+        for (NSValue *value in itemTransitions) {
+            
+            AGGameItemTransition itemTransition;
+            [value getValue:&itemTransition];
             
             dispatch_group_enter(animationGroup);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                AGGameItemView *gameItemView = [self gameItemViewAtPoint:AGPointMake(itemTransition.x0, itemTransition.y0) type:itemTransition.type];
+                AGGameItemView *gameItemView = [self gameItemViewAtPoint:AGPointMake(itemTransition.p0.i, itemTransition.p0.j) type:itemTransition.type];
                 CGRect endFrame = CGRectZero;
                 endFrame.size = gameItemView.frame.size;
-                endFrame.origin = [self CGPointFromAGPoint:AGPointMake(itemTransition.x1, itemTransition.y1)];
+                endFrame.origin = [self CGPointFromAGPoint:AGPointMake(itemTransition.p1.i, itemTransition.p1.j)];
         
                 [UIView animateWithDuration:animationDuration animations:^{
                     gameItemView.frame = endFrame;
                 } completion:^(BOOL finished) {
-                    self.gameField[itemTransition.x1][itemTransition.y1] = gameItemView;
+                    self.gameField[itemTransition.p1.i][itemTransition.p1.j] = gameItemView;
                     dispatch_group_leave(animationGroup);
                 }];
             });

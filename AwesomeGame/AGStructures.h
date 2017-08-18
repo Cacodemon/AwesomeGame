@@ -27,6 +27,14 @@ struct __attribute__((objc_boxable)) AGPointRange {
 };
 typedef struct AGPointRange AGPointRange;
 
+//TODO: refactor
+struct __attribute__((objc_boxable)) AGGameItemTransition {
+    AGPoint p0;
+    AGPoint p1;
+    NSUInteger type;
+};
+typedef struct AGGameItemTransition AGGameItemTransition;
+
 #pragma mark - Constants
 
 extern const AGPoint AGPiontZero;
@@ -46,6 +54,14 @@ static inline AGPointRange AGPointRangeMake(NSInteger i0, NSInteger j0, NSIntege
     r.p0 = AGPointMake(i0, j0);
     r.p1 = AGPointMake(i1, j1);
     return r;
+}
+
+static inline AGGameItemTransition AGGameItemTransitionMake(NSInteger i0, NSInteger j0, NSInteger i1, NSInteger j1, NSUInteger type) {
+    AGGameItemTransition t;
+    t.p0 = AGPointMake(i0, j0);
+    t.p1 = AGPointMake(i1, j1);
+    t.type = type;
+    return t;
 }
 
 #endif /* AGStructures_h */

@@ -7,8 +7,6 @@
 //
 
 #import "AGGameEngine.h"
-#import "AGGameItemTransition.h"
-
 
 NSString * const AGGameItemsDidMoveNotification = @"AGGameItemDidMoveNotification";
 NSString * const AGGameItemsDidDeleteNotification = @"AGGameItemDidDeleteNotification";
@@ -25,6 +23,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 @property AGPoint point0;
 @property AGPoint point1;
+
+//TODO: extract to AGTwoDimentionalArray class
 
 @property (nonatomic, strong) NSMutableArray *gameField;
 
@@ -71,21 +71,10 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
     
     NSMutableArray *newItemTransitions = [NSMutableArray new];
     
-    AGGameItemTransition *itemTransition = [AGGameItemTransition new];
-    itemTransition.x0 = p0.i;
-    itemTransition.y0 = p0.j;
-    itemTransition.x1 = p1.i;
-    itemTransition.y1 = p1.j;
-    itemTransition.type = [self.gameField[p0.i][p0.j] integerValue];
-    [newItemTransitions addObject:itemTransition];
-    
-    itemTransition = [AGGameItemTransition new];
-    itemTransition.x0 = p1.i;
-    itemTransition.y0 = p1.j;
-    itemTransition.x1 = p0.i;
-    itemTransition.y1 = p0.j;
-    itemTransition.type = [self.gameField[p1.i][p1.j] integerValue];
-    [newItemTransitions addObject:itemTransition];
+    AGGameItemTransition itemTransition1 = AGGameItemTransitionMake(p0.i, p0.j, p1.i, p1.j, [self.gameField[p0.i][p0.j] unsignedIntegerValue]);
+    [newItemTransitions addObject:@(itemTransition1)];
+    AGGameItemTransition itemTransition2 = AGGameItemTransitionMake(p1.i, p1.j, p0.i, p0.j, [self.gameField[p1.i][p1.j] unsignedIntegerValue]);
+    [newItemTransitions addObject:@(itemTransition2)];
     
     [self notifyAboutItemsMovement:newItemTransitions];
     
@@ -187,27 +176,22 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
         for (NSInteger j = self.verticalItemsCount - 1; j >= 0; j--) {
             if (self.gameField[i][j] == [NSNull null]) {
                 
-                AGGameItemTransition *itemTransition = [AGGameItemTransition new];
-                itemTransition.x0 = i;
-                itemTransition.x1 = i;
-                itemTransition.y1 = j;
-                itemTransition.y0 = j - self.verticalItemsCount;
-                
                 NSUInteger newItemType = [self generateNewItemType];
                 self.gameField[i][j] = @(newItemType);
-                itemTransition.type = newItemType;
+                
+                AGGameItemTransition itemTransition = AGGameItemTransitionMake(i, (j - self.verticalItemsCount), i, j, newItemType);
                 
                 for (NSInteger k = j - 1; k >= 0; k--) {
                     if (self.gameField[i][k] != [NSNull null]) {
                         self.gameField[i][j] = self.gameField[i][k];
                         self.gameField[i][k] = [NSNull null];
-                        itemTransition.y0 = k;
+                        itemTransition.p0.j = k;
                         itemTransition.type = [self.gameField[i][j] integerValue];
                         break;
                     }
                 }
                 
-                [newItemTransitions addObject:itemTransition];
+                [newItemTransitions addObject:@(itemTransition)];
             }
         }
     }
@@ -234,32 +218,21 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 
 - (void)revertUserAction {
     
-    NSUInteger x0 = self.point0.i;
-    NSUInteger y0 = self.point0.j;
-    NSUInteger x1 = self.point1.i;
-    NSUInteger y1 = self.point1.j;
+    //TODO: remove code duplication
     
-    id tmp = self.gameField[x0][y0];
-    self.gameField[x0][y0] = self.gameField[x1][y1];
-    self.gameField[x1][y1] = tmp;
+    AGPoint p0 = self.point0;
+    AGPoint p1 = self.point1;
+    
+    id tmp = self.gameField[p0.i][p0.j];
+    self.gameField[p0.i][p0.j] = self.gameField[p1.i][p1.j];
+    self.gameField[p1.i][p1.j] = tmp;
     
     NSMutableArray *newItemTransitions = [NSMutableArray new];
     
-    AGGameItemTransition *itemTransition = [AGGameItemTransition new];
-    itemTransition.x0 = x0;
-    itemTransition.y0 = y0;
-    itemTransition.x1 = x1;
-    itemTransition.y1 = y1;
-    itemTransition.type = [self.gameField[x0][y0] integerValue];
-    [newItemTransitions addObject:itemTransition];
-    
-    itemTransition = [AGGameItemTransition new];
-    itemTransition.x0 = x1;
-    itemTransition.y0 = y1;
-    itemTransition.x1 = x0;
-    itemTransition.y1 = y0;
-    itemTransition.type = [self.gameField[x1][y1] integerValue];
-    [newItemTransitions addObject:itemTransition];
+    AGGameItemTransition itemTransition1 = AGGameItemTransitionMake(p0.i, p0.j, p1.i, p1.j, [self.gameField[p0.i][p0.j] unsignedIntegerValue]);
+    [newItemTransitions addObject:@(itemTransition1)];
+    AGGameItemTransition itemTransition2 = AGGameItemTransitionMake(p1.i, p1.j, p0.i, p0.j, [self.gameField[p1.i][p1.j] unsignedIntegerValue]);
+    [newItemTransitions addObject:@(itemTransition2)];
     
     [self notifyAboutItemsMovement:newItemTransitions];
     

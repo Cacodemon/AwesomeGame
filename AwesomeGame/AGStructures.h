@@ -13,8 +13,6 @@
 
 #pragma mark - Structures
 
-//TODO: make NSValue category for unboxing theese
-
 struct __attribute__((objc_boxable)) AGPoint {
     NSInteger i;
     NSInteger j;
@@ -27,7 +25,7 @@ struct __attribute__((objc_boxable)) AGPointRange {
 };
 typedef struct AGPointRange AGPointRange;
 
-//TODO: refactor
+//TODO: separate item movement and item creation
 struct __attribute__((objc_boxable)) AGGameItemTransition {
     AGPoint p0;
     AGPoint p1;

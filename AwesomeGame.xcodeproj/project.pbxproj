@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE5B67E51F2E1DBB009307E0 /* AGStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5B67E41F2E1DBB009307E0 /* AGStructures.m */; };
+		CE7460441F477C0E0093A365 /* NSValue+AwesomeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7460431F477C0E0093A365 /* NSValue+AwesomeGame.m */; };
 		CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */; };
 		CEAA8C741F162BCF00BC3CD7 /* AGAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA8C721F162BCF00BC3CD7 /* AGAlert.m */; };
 		CEAA8C751F162BCF00BC3CD7 /* AGAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA8C731F162BCF00BC3CD7 /* AGAlert.xib */; };
@@ -29,6 +30,8 @@
 /* Begin PBXFileReference section */
 		CE5B67E31F2E1D39009307E0 /* AGStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGStructures.h; sourceTree = "<group>"; };
 		CE5B67E41F2E1DBB009307E0 /* AGStructures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGStructures.m; sourceTree = "<group>"; };
+		CE7460421F477C0E0093A365 /* NSValue+AwesomeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+AwesomeGame.h"; sourceTree = "<group>"; };
+		CE7460431F477C0E0093A365 /* NSValue+AwesomeGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+AwesomeGame.m"; sourceTree = "<group>"; };
 		CEAA8C6D1F16200000BC3CD7 /* UIColor+AwesomeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AwesomeGame.h"; sourceTree = "<group>"; };
 		CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AwesomeGame.m"; sourceTree = "<group>"; };
 		CEAA8C711F162BCF00BC3CD7 /* AGAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAlert.h; sourceTree = "<group>"; };
@@ -76,6 +79,8 @@
 			children = (
 				CEAA8C6D1F16200000BC3CD7 /* UIColor+AwesomeGame.h */,
 				CEAA8C6E1F16200000BC3CD7 /* UIColor+AwesomeGame.m */,
+				CE7460421F477C0E0093A365 /* NSValue+AwesomeGame.h */,
+				CE7460431F477C0E0093A365 /* NSValue+AwesomeGame.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				CEF0B54D1F0F6F2B00F18BE7 /* AGMainMenuViewController.m in Sources */,
 				CEAA8C6F1F16200000BC3CD7 /* UIColor+AwesomeGame.m in Sources */,
 				CEAA8CBA1F1D3B2F00BC3CD7 /* AGGameEngine.m in Sources */,
+				CE7460441F477C0E0093A365 /* NSValue+AwesomeGame.m in Sources */,
 				CEF0B5B91F13930700F18BE7 /* AGHighscoresManager.m in Sources */,
 				CEF0B5641F0F96FB00F18BE7 /* AGGameViewController.m in Sources */,
 				CEF0B55E1F0F953400F18BE7 /* AGHighscoresViewController.m in Sources */,

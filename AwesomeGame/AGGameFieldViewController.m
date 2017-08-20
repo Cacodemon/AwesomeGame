@@ -9,6 +9,7 @@
 #import "AGGameFieldViewController.h"
 #import "AGGameItemView.h"
 #import "AGGameEngine.h"
+#import "NSValue+AwesomeGame.h"
 
 static const NSTimeInterval animationDuration = .5;
 
@@ -137,8 +138,7 @@ static const NSTimeInterval animationDuration = .5;
         
         for (NSValue *value in itemTransitions) {
             
-            AGGameItemTransition itemTransition;
-            [value getValue:&itemTransition];
+            AGGameItemTransition itemTransition = [value agGameItemTransition];
             
             dispatch_group_enter(animationGroup);
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -167,8 +167,7 @@ static const NSTimeInterval animationDuration = .5;
     NSMutableSet *deletedItemsPositions = [NSMutableSet set];
     
     for (NSValue *value in matchingSequences) {
-        AGPointRange range;
-        [value getValue:&range];
+        AGPointRange range = [value agPointRange];
         for (NSUInteger i = range.p0.i; i <= range.p1.i; i++) {
             for (NSUInteger j = range.p0.j; j <= range.p1.j; j++) {
                 [deletedItemsPositions addObject:@(AGPointMake(i, j))];
@@ -184,8 +183,7 @@ static const NSTimeInterval animationDuration = .5;
             dispatch_group_enter(animationGroup);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                AGPoint p;
-                [value getValue:&p];
+                AGPoint p = [value agPoint];
                 
                 [UIView animateWithDuration:animationDuration animations:^{
                         [self.gameField[p.i][p.j] setAlpha:0.0];

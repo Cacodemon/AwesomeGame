@@ -7,6 +7,7 @@
 //
 
 #import "AGGameEngine.h"
+#import "NSValue+AwesomeGame.h"
 
 NSString * const AGGameItemsDidMoveNotification = @"AGGameItemDidMoveNotification";
 NSString * const AGGameItemsDidDeleteNotification = @"AGGameItemDidDeleteNotification";
@@ -203,8 +204,7 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 - (void)deleteItems:(NSArray*)matchingSequences {
     
     for (NSValue *value in matchingSequences) {
-        AGPointRange range;
-        [value getValue:&range];
+        AGPointRange range = [value agPointRange];
         for (NSUInteger i = range.p0.i; i <= range.p1.i; i++) {
             for (NSUInteger j = range.p0.j; j <= range.p1.j; j++) {
                 self.gameField[i][j] = [NSNull null];

@@ -32,6 +32,7 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 - (void)notifyAboutItemsMovement:(NSArray*)items;
 - (void)notifyAboutItemsDeletion:(NSArray*)items;
 
+- (void)_swapItemAtPiont0:(AGPoint)p0 withItemAtPoint1:(AGPoint)p1;
 - (void)configureGameField;
 - (NSUInteger)generateNewItemType;
 - (void)applyUserAction;
@@ -66,18 +67,8 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
         withItemAtPoint1:(AGPoint)p1 {
 
     NSLog(@"(%ld; %ld) -> (%ld; %ld)", (long)p0.i, (long)p0.j, (long)p1.i, (long)p1.j);
-    id tmp = self.gameField[p0.i][p0.j];
-    self.gameField[p0.i][p0.j] = self.gameField[p1.i][p1.j];
-    self.gameField[p1.i][p1.j] = tmp;
     
-    NSMutableArray *newItemTransitions = [NSMutableArray new];
-    
-    AGGameItemTransition itemTransition1 = AGGameItemTransitionMake(p0.i, p0.j, p1.i, p1.j, [self.gameField[p0.i][p0.j] unsignedIntegerValue]);
-    [newItemTransitions addObject:@(itemTransition1)];
-    AGGameItemTransition itemTransition2 = AGGameItemTransitionMake(p1.i, p1.j, p0.i, p0.j, [self.gameField[p1.i][p1.j] unsignedIntegerValue]);
-    [newItemTransitions addObject:@(itemTransition2)];
-    
-    [self notifyAboutItemsMovement:newItemTransitions];
+    [self _swapItemAtPiont0:p0 withItemAtPoint1:p1];
     
     self.point0 = p0;
     self.point1 = p1;
@@ -86,6 +77,19 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 }
 
 #pragma mark - Private
+
+- (void)_swapItemAtPiont0:(AGPoint)p0
+         withItemAtPoint1:(AGPoint)p1 {
+    
+    id tmp = self.gameField[p0.i][p0.j];
+    self.gameField[p0.i][p0.j] = self.gameField[p1.i][p1.j];
+    self.gameField[p1.i][p1.j] = tmp;
+    
+    AGGameItemTransition itemTransition1 = AGGameItemTransitionMake(p0.i, p0.j, p1.i, p1.j, [self.gameField[p0.i][p0.j] unsignedIntegerValue]);
+    AGGameItemTransition itemTransition2 = AGGameItemTransitionMake(p1.i, p1.j, p0.i, p0.j, [self.gameField[p1.i][p1.j] unsignedIntegerValue]);
+    
+    [self notifyAboutItemsMovement:@[@(itemTransition1), @(itemTransition2)]];
+}
 
 - (void)configureGameField {
     self.gameField = [NSMutableArray arrayWithCapacity:self.horizontalItemsCount];
@@ -217,29 +221,9 @@ NSString * const kAGGameItemTransitions = @"kAGGameItemTransitions";
 }
 
 - (void)revertUserAction {
-    
-    //TODO: remove code duplication
-    
-    AGPoint p0 = self.point0;
-    AGPoint p1 = self.point1;
-    
-    id tmp = self.gameField[p0.i][p0.j];
-    self.gameField[p0.i][p0.j] = self.gameField[p1.i][p1.j];
-    self.gameField[p1.i][p1.j] = tmp;
-    
-    NSMutableArray *newItemTransitions = [NSMutableArray new];
-    
-    AGGameItemTransition itemTransition1 = AGGameItemTransitionMake(p0.i, p0.j, p1.i, p1.j, [self.gameField[p0.i][p0.j] unsignedIntegerValue]);
-    [newItemTransitions addObject:@(itemTransition1)];
-    AGGameItemTransition itemTransition2 = AGGameItemTransitionMake(p1.i, p1.j, p0.i, p0.j, [self.gameField[p1.i][p1.j] unsignedIntegerValue]);
-    [newItemTransitions addObject:@(itemTransition2)];
-    
-    [self notifyAboutItemsMovement:newItemTransitions];
-    
+    [self _swapItemAtPiont0:self.point0 withItemAtPoint1:self.point1];
     self.canRevertUserAction = NO;
 }
-
-
 
 #pragma mark - Notifications
 
